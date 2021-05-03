@@ -1,6 +1,6 @@
 import React from "react";
 import {UserItem} from "./UserItem";
-import {UserT} from "../../bll/bll";
+import {UserT} from "../../../bll/bll";
 
 export const UsersList: React.FC<PropsT> = (props) => {
 
@@ -15,7 +15,7 @@ export const UsersList: React.FC<PropsT> = (props) => {
     }
 
     return (
-        <div>
+        <ul>
             {users.map(user => {
                 return (
                     <UserItem key={user.id}
@@ -25,7 +25,7 @@ export const UsersList: React.FC<PropsT> = (props) => {
                               placeCount={user.places}/>
                 )
             })}
-        </div>
+        </ul>
     )
 }
 
