@@ -1,6 +1,7 @@
 import React from "react";
 import {UserItem} from "./UserItem";
-import {UserT} from "../../../bll/bll";
+import {UserT} from "../../../bll/reducers/user-reducer";
+import {Card} from "../../shared/components/layout/Card";
 
 export const UsersList: React.FC<PropsT> = (props) => {
 
@@ -10,7 +11,9 @@ export const UsersList: React.FC<PropsT> = (props) => {
 
     if (users.length === 0) {
         return (
-            <div>No users</div>
+            <Card>
+                <div>No users</div>
+            </Card>
         )
     }
 

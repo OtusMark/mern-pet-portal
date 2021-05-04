@@ -1,5 +1,5 @@
 import React from "react";
-import {Avatar} from "../../shared/components/Avatar/Avatar";
+import {Avatar} from "../../shared/components/uiElements/Avatar";
 import {Link} from "react-router-dom";
 import { Card } from "../../shared/components/layout/Card";
 

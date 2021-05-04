@@ -1,18 +1,13 @@
 import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react";
 import styled, {StyledComponentProps} from "styled-components/macro";
 
-type DefaultButtonPropsType = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
-
-type PropsType = DefaultButtonPropsType
-
-export const Button: React.FC<PropsType> = ({...restProps}) => {
+export const Button: React.FC<PropsT> = props => {
 
     return (
-        <StyledButton{...restProps}/>
+        <StyledButton{...props}/>
     );
 }
 
-// Styles
 // Styles
 const StyledButton = styled.button<StyledComponentProps<any, any, any, any>>`
   border: none;
@@ -41,3 +36,8 @@ const StyledButton = styled.button<StyledComponentProps<any, any, any, any>>`
     box-shadow: ${({ theme, disabled }) => disabled ? theme.shadow['1'] : theme.shadow['1']};
   }
 `;
+
+// Types
+type DefaultButtonPropsT = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
+
+type PropsT = DefaultButtonPropsT
