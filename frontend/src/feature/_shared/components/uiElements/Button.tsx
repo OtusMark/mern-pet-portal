@@ -1,10 +1,47 @@
 import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react";
+import { Link } from "react-router-dom";
 import styled, {StyledComponentProps} from "styled-components/macro";
 
-export const Button: React.FC<PropsT> = props => {
+export const Button: React.FC<PropsT> = (props) => {
 
+    const {
+        href,
+        to,
+        type,
+        onClick,
+        disabled,
+    } = props
+
+    if (href) {
+        return (
+            <StyledButton disabled={disabled}>
+                <a
+                    href={href}
+                >
+                    {props.children}
+                </a>
+            </StyledButton>
+        );
+    }
+    if (to) {
+        return (
+            <StyledButton disabled={disabled}>
+                <Link
+                    to={to}
+                >
+                    {props.children}
+                </Link>
+            </StyledButton>
+        );
+    }
     return (
-        <StyledButton{...props}/>
+        <StyledButton
+            type={type}
+            onClick={onClick}
+            disabled={disabled}
+        >
+            {props.children}
+        </StyledButton>
     );
 }
 
@@ -35,9 +72,19 @@ const StyledButton = styled.button<StyledComponentProps<any, any, any, any>>`
     transform: ${({ disabled }) => disabled ? 'none' : 'translateY(0)'};
     box-shadow: ${({ theme, disabled }) => disabled ? theme.shadow['1'] : theme.shadow['1']};
   }
+  
+  & a {
+    color: inherit;
+  }
 `;
 
 // Types
 type DefaultButtonPropsT = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-type PropsT = DefaultButtonPropsT
+type PropsT = DefaultButtonPropsT & {
+    href?: string
+    to?: string
+    type?: string
+    onClick?: () => void
+    disabled?: boolean
+}

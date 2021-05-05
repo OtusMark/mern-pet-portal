@@ -16,7 +16,7 @@ export const MainNavigation = () => {
     return (
         <>
             <MainHeader>
-                <Sidebar isOpen={sidebarIsOpen}>
+                <Sidebar isOpen={sidebarIsOpen} onClick={toggleSidebar}>
                     <SideNav>
                         <NavLinks/>
                     </SideNav>
@@ -37,15 +37,6 @@ export const MainNavigation = () => {
 
 // Styles
 
-const HeaderNav = styled.nav`
-  display: flex;
-  justify-self: end;
-
-  & ul {
-    display: flex;
-  }
-`
-
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -57,4 +48,13 @@ const StyledH1 = styled.h1`
 
 const SideNav = styled.nav`
 
+`
+
+const HeaderNav = styled.nav`
+  display: flex;
+  justify-self: end;
+
+  & ul {
+    display: flex;
+  }
 `

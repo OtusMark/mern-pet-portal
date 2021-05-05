@@ -9,7 +9,7 @@ export const NavLinks: React.FC = () => {
                 <NavLink to="/" exact>All users</NavLink>
             </StyledLi>
             <StyledLi>
-                <NavLink to="/id1/places">My places</NavLink>
+                <NavLink to="/id-1/places">My places</NavLink>
             </StyledLi>
             <StyledLi>
                 <NavLink to="/places/new">Add place</NavLink>

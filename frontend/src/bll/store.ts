@@ -2,9 +2,11 @@ import {combineReducers} from "redux";
 import {configureStore} from "@reduxjs/toolkit";
 import {userReducer} from "./reducers/user-reducer";
 import thunk from "redux-thunk";
+import {placeReducer} from "./reducers/place-reducer";
 
 const rootReducer = combineReducers({
     user: userReducer,
+    place: placeReducer,
 })
 
 export const store = configureStore({
