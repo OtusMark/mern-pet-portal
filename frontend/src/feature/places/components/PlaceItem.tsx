@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {PlaceT} from "../../../bll/reducers/place-reducer";
 import {Button} from "../../_shared/components/uiElements/Button";
+import {Map} from "../../_shared/components/uiElements/Map";
 import {Card} from "../../_shared/components/layout/Card";
 import {Avatar} from "../../_shared/components/uiElements/Avatar";
 import {Modal} from "../../_shared/components/uiElements/Modal";
@@ -36,12 +37,7 @@ export const PlaceItem: React.FC<PropsT> = (props) => {
             </li>
 
             <Modal show={showMap} toggleModal={toggleMapHandler}>
-                <h2>The map</h2>
-                <div>
-                    <div>{place.coordinates.lat}</div>
-                    <div>{place.coordinates.lng}</div>
-                </div>
-                <Button>Random button</Button>
+                <Map show={showMap} center={place.coordinates} zoom={16}/>
             </Modal>
         </>
     )
