@@ -1,7 +1,5 @@
 {
-  "dependencies": {
-    "@types/uuid": "^8.3.0",
-    "formik": "^2.2.6",
-    "uuid": "^8.3.2"
-  }
+  "name": "mern",
+  "version": "0.1.0",
+  "private": false
 }
