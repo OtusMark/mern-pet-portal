@@ -2,9 +2,6 @@ import styled from "styled-components/macro";
 
 export const Card = styled.div`
   padding: 2rem;
-  
-  width: 100%;
-  height: 100%;
 
   background-color: ${({theme}) => theme.color.white};
 

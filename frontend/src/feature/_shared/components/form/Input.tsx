@@ -1,4 +1,4 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from "react";
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, TextareaHTMLAttributes} from "react";
 import styled, {StyledComponentProps} from "styled-components/macro";
 
 export const Input: React.FC<InputTextPropsT> = (props) => {
@@ -60,10 +60,9 @@ const InputTextWrapper = styled.div`
 `
 
 const StyledInput = styled.input<StyledComponentProps<any, any, any, any>>`
-  padding: 1rem .5rem;
-  margin-bottom: 20px;
+  padding: .5rem .5rem;
+  margin-bottom: 1.5rem;
 
-  height: 20px;
   width: 100%;
 
   font-size: ${({theme}) => theme.font.size.default};
@@ -73,8 +72,8 @@ const StyledInput = styled.input<StyledComponentProps<any, any, any, any>>`
 `
 
 const StyledTextarea = styled.textarea<StyledComponentProps<any, any, any, any>>`
-  padding: 1rem .5rem;
-  margin-bottom: 20px;
+  padding: .5rem .5rem;
+  margin-bottom: 1.1rem;
 
   width: 100%;
 
@@ -95,9 +94,10 @@ const StyledError = styled.div`
 `
 
 // Types
-type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+type DefaultInputPropsT = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+type DefaultTextareaT = DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
 
-type InputTextPropsT = DefaultInputPropsType & {
+type InputTextPropsT = DefaultInputPropsT & DefaultTextareaT & {
     isTextarea?: boolean
     onChangeText?: (value: string) => void
     onEnter?: () => void
