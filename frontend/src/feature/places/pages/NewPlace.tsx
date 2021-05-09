@@ -1,7 +1,7 @@
 import {FormikHelpers, useFormik} from "formik";
 import styled from "styled-components/macro";
 import {Button} from "../../_shared/components/uiElements/Button";
-import {InputText} from "../../_shared/components/uiElements/InputText";
+import {Input} from "../../_shared/components/uiElements/Input";
 
 export const NewPlace = () => {
     // const dispatch = useDispatch()
@@ -18,9 +18,7 @@ export const NewPlace = () => {
         },
         onSubmit: async (values, formikHelpers: FormikHelpers<FormikValueT>) => {
             console.log(values)
-            values.title = ''
-            values.description = ''
-            values.address = ''
+            formikHelpers.resetForm()
         }
     })
 
@@ -28,17 +26,17 @@ export const NewPlace = () => {
         <StyledForm onSubmit={formik.handleSubmit}>
 
             <TextFieldWrapper>
-                <InputText placeholder="Place title" {...formik.getFieldProps('title')} type="text"/>
+                <Input placeholder="Place title" {...formik.getFieldProps('title')} type="text"/>
                 {formik.errors.title ? <FormError>{formik.errors.title}</FormError> : null}
             </TextFieldWrapper>
 
             <TextFieldWrapper>
-                <InputText placeholder="Place description" {...formik.getFieldProps('description')} type="text"/>
+                <Input isTextarea placeholder="Place description" {...formik.getFieldProps('description')} type="text"/>
                 {formik.errors.title ? <FormError>{formik.errors.title}</FormError> : null}
             </TextFieldWrapper>
 
             <TextFieldWrapper>
-                <InputText placeholder="Place address" {...formik.getFieldProps('address')} type="text"/>
+                <Input placeholder="Place address" {...formik.getFieldProps('address')} type="text"/>
                 {formik.errors.title ? <FormError>{formik.errors.title}</FormError> : null}
             </TextFieldWrapper>
 
