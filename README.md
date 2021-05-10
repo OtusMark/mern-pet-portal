@@ -1,3 +1,5 @@
 # Mern places app
 
-info will be added soon
+Don't forget
+------------
+* Find a better way to type errors from the backend.

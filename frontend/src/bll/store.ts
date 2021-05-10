@@ -3,8 +3,10 @@ import {configureStore} from "@reduxjs/toolkit";
 import {userReducer} from "./reducers/user-reducer";
 import thunk from "redux-thunk";
 import {placeReducer} from "./reducers/place-reducer";
+import {authReducer} from "./reducers/auth-reducer";
 
 const rootReducer = combineReducers({
+    auth: authReducer,
     user: userReducer,
     place: placeReducer,
 })

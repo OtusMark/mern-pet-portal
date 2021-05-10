@@ -58,7 +58,7 @@ const signup = async (req, res, next) => {
         )
     }
 
-    res.status(201).json({user: createdUser.toObject({getters: true})})
+    res.status(201).json({user: createdUser.toObject({getters: true}), message: `User ${name} created`})
 }
 
 // Login
@@ -80,7 +80,7 @@ const login = async (req, res, next) => {
         )
     }
 
-    res.json({message: 'Logged in'})
+    res.json({message: 'You are logged in'})
 }
 
 exports.getUsers = getUsers

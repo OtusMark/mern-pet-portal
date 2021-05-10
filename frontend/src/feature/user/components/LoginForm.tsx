@@ -5,8 +5,12 @@ import {Input} from "../../_shared/components/form/Input";
 import styled from "styled-components/macro";
 import {Card} from "../../_shared/components/layout/Card";
 import {Button} from "../../_shared/components/uiElements/Button";
+import {useDispatch} from "react-redux";
+import {login} from "../../../bll/reducers/auth-reducer";
 
 export const LoginForm = () => {
+
+    const dispatch = useDispatch()
 
     const formik = useFormik({
 
@@ -26,6 +30,7 @@ export const LoginForm = () => {
         },
         onSubmit: async (values, formikHelpers: FormikHelpers<LoginFormValueT>) => {
 
+            dispatch(login(values))
             formikHelpers.resetForm()
         }
     })
