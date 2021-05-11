@@ -5,7 +5,7 @@ import {ThemeProvider} from "styled-components";
 import {theme} from "./styles/theme";
 import {NormalizeCss} from './styles/NormalizeCss';
 import {GlobalStyles} from './styles/GlobalStyles';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import {store} from "./bll/store";
 
 ReactDOM.render(
@@ -13,7 +13,8 @@ ReactDOM.render(
         <NormalizeCss/>
         <GlobalStyles/>
         <Provider store={store}>
-            <App/>
+
+                <App/>
         </Provider>
     </ThemeProvider>,
     document.getElementById('root')

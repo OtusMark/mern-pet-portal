@@ -10,17 +10,17 @@ import styled from "styled-components/macro";
 import {Loader} from "./feature/_shared/components/uiElements/Loader";
 import {useSelector} from "react-redux";
 import {AppRootStateT} from "./bll/store";
-import {AppStatusT} from "./bll/reducers/app-reducer";
-import {Alerts} from "./feature/_shared/components/helpers/Alerts";
+import {AppStatusT, NotificationT} from "./bll/reducers/app-reducer";
+import {NotificationProvider} from "./feature/_shared/components/notification/NotificationProvider"
 
 function App() {
 
     const appStatus = useSelector<AppRootStateT, AppStatusT>(state => state.app.status)
-    const appAlert = useSelector<AppRootStateT, string | null>(state => state.app.alert)
-    const appError = useSelector<AppRootStateT, string | null>(state => state.app.error)
+    const notifications = useSelector<AppRootStateT, Array<NotificationT>>(state => state.app.notifications)
 
     return (
         <BrowserRouter>
+            <NotificationProvider notifications={notifications}/>
             <MainNavigation/>
             <Container>
                 <StyledMain>
@@ -40,7 +40,6 @@ function App() {
                         </Route>
                         <Redirect to="/"/>
                     </Switch>
-                    <Alerts alert={appAlert} error={appError}/>
                 </StyledMain>
             </Container>
         </BrowserRouter>

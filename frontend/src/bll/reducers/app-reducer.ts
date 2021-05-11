@@ -1,10 +1,10 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {v4} from "uuid";
 
 // Slice
 const initialState : StateT = {
     status: 'idle',
-    alert: null,
-    error: null,
+    notifications: [],
 }
 
 const slice = createSlice({
@@ -14,23 +14,36 @@ const slice = createSlice({
         setAppStatus(state, action: PayloadAction<AppStatusT>) {
             state.status = action.payload
         },
-        setAppAlert(state, action: PayloadAction<string | null>) {
-            state.alert = action.payload
+        setAppNoteSuccess(state, action: PayloadAction<string | null>) {
+            state.notifications.push({
+                id: v4(),
+                type: 'success',
+                message: action.payload
+            })
         },
-        setAppError(state, action: PayloadAction<string | null>) {
-            state.error = action.payload
+        setAppNoteError(state, action: PayloadAction<string | null>) {
+            state.notifications.push({
+                id: v4(),
+                type: 'error',
+                message: action.payload
+            })
         }
     }
 })
 
 export const appReducer = slice.reducer
-export const {setAppStatus, setAppAlert, setAppError} = slice.actions
+export const {setAppStatus, setAppNoteSuccess, setAppNoteError} = slice.actions
 
 // Types
 export type AppStatusT = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 type StateT = {
     status: AppStatusT
-    alert: string | null
-    error: string | null
+    notifications: Array<NotificationT>
+}
+
+export type NotificationT = {
+    id: string,
+    type: 'success' | 'error',
+    message: string | null
 }

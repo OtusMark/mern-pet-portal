@@ -1,14 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {PlaceT} from "./place-reducer";
 
-
-const initialState: Array<UserT> = [
-    {
-        id: 'id-1',
-        name: 'First user',
-        image: 'https://i.natgeofe.com/n/c0e0a134-3e97-4b8f-9f7b-9d11f5e1bf02/comedy-wildlife-awards-squirel-stop.jpg',
-        places: 5
-    }
-]
+const initialState: Array<UserT> = []
 
 const slice = createSlice({
     name: 'user',
@@ -23,5 +16,5 @@ export type UserT = {
     id: string
     name: string
     image: string
-    places: number
+    places: Array<PlaceT>
 }

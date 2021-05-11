@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {LoginBodyT, SignupBodyT, userAPI} from "../../api/user-api";
-import {setAppAlert, setAppError, setAppStatus } from "./app-reducer";
+import {setAppNoteError, setAppNoteSuccess, setAppStatus } from "./app-reducer";
 
 // Thunks
 export const signup = createAsyncThunk('auth/signup', async (body: SignupBodyT, thunkAPI) => {
@@ -11,12 +11,12 @@ export const signup = createAsyncThunk('auth/signup', async (body: SignupBodyT, 
         if (res.status === 201) {
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
-            thunkAPI.dispatch(setAppAlert(res.data.message))
+            thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
             return
         }
     } catch (err) {
         thunkAPI.dispatch(setAppStatus('failed'))
-        thunkAPI.dispatch(setAppError(err.response.data.message))
+        thunkAPI.dispatch(setAppNoteError(err.response.data.message))
     }
 })
 
@@ -28,12 +28,12 @@ export const login = createAsyncThunk('auth/login', async (body: LoginBodyT, thu
         if (res.status === 200) {
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
-            thunkAPI.dispatch(setAppAlert(res.data.message))
+            thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
             return
         }
     } catch (err) {
         thunkAPI.dispatch(setAppStatus('failed'))
-        thunkAPI.dispatch(setAppError(err.response.data.message))
+        thunkAPI.dispatch(setAppNoteError(err.response.data.message))
     }
 })
 

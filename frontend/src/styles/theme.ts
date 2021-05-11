@@ -31,6 +31,7 @@ export const theme = {
         },
         black: '#2b2b2b',
         white: '#f6f6f6',
+        success: '#6bff2b',
         error: '#ff2b2b',
         transparent: {
             black: 'rgba(43, 43, 43, .5);'
