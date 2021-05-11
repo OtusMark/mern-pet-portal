@@ -4,8 +4,10 @@ import {userReducer} from "./reducers/user-reducer";
 import thunk from "redux-thunk";
 import {placeReducer} from "./reducers/place-reducer";
 import {authReducer} from "./reducers/auth-reducer";
+import {appReducer} from "./reducers/app-reducer";
 
 const rootReducer = combineReducers({
+    app: appReducer,
     auth: authReducer,
     user: userReducer,
     place: placeReducer,
