@@ -1,6 +1,6 @@
 import {darken, lighten} from "polished";
 
-const primaryColor = '#ff192f'
+const primaryColor = '#d519ff'
 const secondaryColor = '#ffa940'
 
 export const theme = {

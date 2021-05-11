@@ -1,14 +1,19 @@
 import styled, {css, keyframes} from "styled-components/macro";
 import React, {useEffect, useState} from "react";
 import {StyledComponentProps} from "styled-components";
+import {useDispatch} from "react-redux";
+import { removeAppNote } from "../../../../bll/reducers/app-reducer";
 
 
 export const Notification: React.FC<PropsT> = props => {
 
     const {
+        id,
         message,
         type,
     } = props
+
+    const dispatch = useDispatch()
 
     const [close, setClose] = useState(false)
     const [barWidth, setBarWidth] = useState<number>(0)
@@ -39,13 +44,12 @@ export const Notification: React.FC<PropsT> = props => {
         handlePauseTimer()
         setClose(true)
         setTimeout(() => {
-            // remove state and after remove the component from the dom
+            dispatch(removeAppNote(id))
         }, 400)
     }
 
     useEffect(() => {
         if (barWidth === 100) {
-            // Close notification
             handleCloseNotification()
         }
     }, [barWidth])
@@ -119,6 +123,7 @@ const NotificationItem = styled.div<StyledComponentProps<any, any, any, any>>`
 
 // Types
 type PropsT = {
+    id: string
     message: string | null
     type: 'success' | 'error'
 }

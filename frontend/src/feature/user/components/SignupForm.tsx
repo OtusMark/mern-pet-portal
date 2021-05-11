@@ -49,7 +49,7 @@ export const SignupForm = () => {
                 <InputWrapper>
                     <Input placeholder="Name"
                            type="text"
-                           error={formik.errors.email}
+                           error={formik.errors.name}
                            {...formik.getFieldProps('name')}/>
                 </InputWrapper>
 

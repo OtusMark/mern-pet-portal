@@ -1,5 +1,25 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {setAppNoteError, setAppNoteSuccess, setAppStatus} from "./app-reducer";
+import {userAPI} from "../../api/user-api";
+import {AddPlaceBodyT, placeAPI} from "../../api/places-api";
 
+// Thunks
+export const addPlace = createAsyncThunk('place/addPlace', async (body: AddPlaceBodyT, thunkAPI) => {
+
+    thunkAPI.dispatch(setAppStatus('loading'))
+    try {
+        const res = await placeAPI.addPlace(body)
+        if (res.status === 201) {
+
+            thunkAPI.dispatch(setAppStatus('succeeded'))
+            thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
+            return
+        }
+    } catch (err) {
+        thunkAPI.dispatch(setAppStatus('failed'))
+        thunkAPI.dispatch(setAppNoteError(err.response.data.message))
+    }
+})
 
 const initialState: Array<PlaceT> = [
     {
@@ -7,20 +27,8 @@ const initialState: Array<PlaceT> = [
         title: 'place title',
         description: 'place description',
         address: 'place address',
-        imageUrl: 'https://i.natgeofe.com/n/c0e0a134-3e97-4b8f-9f7b-9d11f5e1bf02/comedy-wildlife-awards-squirel-stop.jpg',
+        image: 'https://i.natgeofe.com/n/c0e0a134-3e97-4b8f-9f7b-9d11f5e1bf02/comedy-wildlife-awards-squirel-stop.jpg',
         creatorId: 'id-1',
-        coordinates: {
-            lat: 40.7484405,
-            lng: -73.9878584
-        },
-    },
-    {
-        id: '2',
-        title: 'place 2 title',
-        description: 'place description',
-        address: 'place address',
-        imageUrl: 'https://i.natgeofe.com/n/c0e0a134-3e97-4b8f-9f7b-9d11f5e1bf02/comedy-wildlife-awards-squirel-stop.jpg',
-        creatorId: 'id-2',
         coordinates: {
             lat: 40.7484405,
             lng: -73.9878584
@@ -31,7 +39,14 @@ const initialState: Array<PlaceT> = [
 const slice = createSlice({
     name: 'place',
     initialState: initialState,
-    reducers: {}
+    reducers: {},
+    extraReducers: builder => {
+        builder
+            .addCase(addPlace.fulfilled, (state, action) => {
+                return state
+            })
+    }
+
 })
 
 export const placeReducer = slice.reducer
@@ -42,7 +57,7 @@ export type PlaceT = {
     title: string
     description: string
     address: string
-    imageUrl: string
+    image: string
     creatorId: string
     coordinates: {
         lat: number

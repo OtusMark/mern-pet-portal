@@ -24,7 +24,7 @@ export const PlaceItem: React.FC<PropsT> = (props) => {
                     <h2>{place.title}</h2>
                     <h3>{place.address}</h3>
                     <p>{place.description}</p>
-                    <Avatar src={place.imageUrl} alt=""/>
+                    <Avatar src={place.image} alt=""/>
                     <div>{place.creatorId}</div>
                     <div>{place.coordinates.lat}</div>
                     <div>{place.coordinates.lng}</div>

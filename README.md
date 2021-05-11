@@ -2,4 +2,5 @@
 
 Don't forget
 ------------
-* Find a better way to type errors from the backend.
+* Remove useless information from the responses. (__v, _d....)
+* Remove user email from the getUser response data.

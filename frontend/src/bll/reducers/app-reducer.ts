@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {v4} from "uuid";
 
 // Slice
-const initialState : StateT = {
+const initialState: StateT = {
     status: 'idle',
     notifications: [],
 }
@@ -27,12 +27,17 @@ const slice = createSlice({
                 type: 'error',
                 message: action.payload
             })
+        },
+        removeAppNote(state, action: PayloadAction<string>) {
+            state.notifications = state.notifications.filter((note: NotificationT) => {
+                return note.id !== action.payload
+            })
         }
     }
 })
 
 export const appReducer = slice.reducer
-export const {setAppStatus, setAppNoteSuccess, setAppNoteError} = slice.actions
+export const {setAppStatus, setAppNoteSuccess, setAppNoteError, removeAppNote} = slice.actions
 
 // Types
 export type AppStatusT = 'idle' | 'loading' | 'succeeded' | 'failed'

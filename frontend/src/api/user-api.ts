@@ -15,6 +15,9 @@ export const userAPI = {
     },
     login(body: LoginBodyT) {
         return instance.post('/login', body)
+    },
+    getUsers() {
+        return instance.get('/')
     }
 }
 

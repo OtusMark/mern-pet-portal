@@ -13,7 +13,7 @@ export const NotificationProvider: React.FC<PropsT> = props => {
     return (
             <NotificationWrapper>
                 {notifications.map(note => {
-                    return <Notification key={note.id} message={note.message} type={note.type}/>
+                    return <Notification key={note.id} id={note.id} message={note.message} type={note.type}/>
                 })}
             </NotificationWrapper>
     )

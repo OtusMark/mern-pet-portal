@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {LoginBodyT, SignupBodyT, userAPI} from "../../api/user-api";
 import {setAppNoteError, setAppNoteSuccess, setAppStatus } from "./app-reducer";
 
@@ -29,7 +29,7 @@ export const login = createAsyncThunk('auth/login', async (body: LoginBodyT, thu
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
             thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
-            return
+            return res.data.user.id
         }
     } catch (err) {
         thunkAPI.dispatch(setAppStatus('failed'))
@@ -38,10 +38,10 @@ export const login = createAsyncThunk('auth/login', async (body: LoginBodyT, thu
 })
 
 // Slice
-const initialState = {
+const initialState: StateT = {
     signedUp: false,
     loggedIn: false,
-    isAuthenticated: false,
+    loggedInUserId: null
 }
 
 const slice = createSlice({
@@ -54,10 +54,18 @@ const slice = createSlice({
                 state.signedUp = true
             })
         builder
-            .addCase(login.fulfilled, state => {
+            .addCase(login.fulfilled, (state, action) => {
             state.loggedIn = true
+            state.loggedInUserId = action.payload
         })
     }
 })
 
 export const authReducer = slice.reducer
+
+// Types
+type StateT = {
+    signedUp: boolean
+    loggedIn: boolean
+    loggedInUserId: string | null
+}

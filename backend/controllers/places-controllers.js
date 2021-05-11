@@ -66,7 +66,7 @@ const createPlace = async (req, res, next) => {
         title,
         description,
         address,
-        location: coordinates,
+        coordinates,
         image: 'https://lh3.googleusercontent.com/_qA0oHc5NXa4/TVq1iv0eI_I/AAAAAAAAAcU/2XSvva4aMzU/s400/DaisyOwl.jpg',
         creatorId
     })
