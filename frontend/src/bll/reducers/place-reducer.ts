@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {setAppNoteError, setAppNoteSuccess, setAppStatus} from "./app-reducer";
-import {userAPI} from "../../api/user-api";
 import {AddPlaceBodyT, placeAPI} from "../../api/places-api";
 
 // Thunks
@@ -13,7 +12,7 @@ export const addPlace = createAsyncThunk('place/addPlace', async (body: AddPlace
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
             thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
-            return
+            return res.data.place
         }
     } catch (err) {
         thunkAPI.dispatch(setAppStatus('failed'))
@@ -43,10 +42,20 @@ const slice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(addPlace.fulfilled, (state, action) => {
-                return state
+
+                const newPlace = {
+                    id: action.payload.id,
+                    title: action.payload.title,
+                    description: action.payload.description,
+                    address: action.payload.address,
+                    image: action.payload.image,
+                    creatorId: action.payload.creatorId,
+                    coordinates: action.payload.coordinates
+                }
+
+                state.push(newPlace)
             })
     }
-
 })
 
 export const placeReducer = slice.reducer

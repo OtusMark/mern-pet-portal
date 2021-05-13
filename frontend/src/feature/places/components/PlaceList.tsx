@@ -22,9 +22,9 @@ export const PlaceList: React.FC<PropsT> = (props) => {
     }
 
     return (
-        <ul>
-            {places.map(place => <PlaceItem key={place.id} place={place}/>)}
-        </ul>
+        <>
+            {places.map(place => <ul><PlaceItem key={place.id} place={place}/></ul>)}
+        </>
     )
 }
 
