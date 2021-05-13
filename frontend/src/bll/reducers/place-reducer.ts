@@ -20,11 +20,18 @@ export const getPlacesByUserId = createAsyncThunk('place/getPlacesByUserId', asy
     }
 })
 
-export const addPlace = createAsyncThunk('place/addPlace', async (body: AddPlaceBodyT, thunkAPI) => {
+export const addPlace = createAsyncThunk('place/addPlace', async (payload: AddPlacePayloadT, thunkAPI) => {
+
+    const body: AddPlaceBodyT = {
+        title: payload.title,
+        description: payload.description,
+        address: payload.address,
+        creatorId: payload.creatorId
+    }
 
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
-        const res = await placeAPI.addPlace(body)
+        const res = await placeAPI.addPlace(body, payload.userToken)
         if (res.status === 201) {
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
@@ -126,6 +133,14 @@ export type PlaceT = {
         lat: number
         lng: number
     }
+}
+
+export type AddPlacePayloadT = {
+    title: string
+    description: string
+    address: string
+    creatorId: string
+    userToken: string
 }
 
 export type UpdatePlacePayloadT = {

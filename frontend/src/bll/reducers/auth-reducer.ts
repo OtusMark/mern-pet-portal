@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {LoginBodyT, SignupBodyT, userAPI} from "../../api/user-api";
-import {setAppNoteError, setAppNoteSuccess, setAppStatus } from "./app-reducer";
+import {setAppNoteError, setAppNoteSuccess, setAppStatus} from "./app-reducer";
 
 // Thunks
 export const signup = createAsyncThunk('auth/signup', async (body: SignupBodyT, thunkAPI) => {
@@ -29,7 +29,7 @@ export const login = createAsyncThunk('auth/login', async (body: LoginBodyT, thu
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
             thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
-            return res.data.user.id
+            return res.data
         }
     } catch (err) {
         thunkAPI.dispatch(setAppStatus('failed'))
@@ -41,7 +41,8 @@ export const login = createAsyncThunk('auth/login', async (body: LoginBodyT, thu
 const initialState: StateT = {
     signedUp: false,
     loggedIn: false,
-    loggedInUserId: null
+    loggedInUserId: null,
+    loggedInUserToken: null
 }
 
 const slice = createSlice({
@@ -55,9 +56,10 @@ const slice = createSlice({
             })
         builder
             .addCase(login.fulfilled, (state, action) => {
-            state.loggedIn = true
-            state.loggedInUserId = action.payload
-        })
+                state.loggedIn = true
+                state.loggedInUserId = action.payload.userId
+                state.loggedInUserToken = action.payload.token
+            })
     }
 })
 
@@ -68,4 +70,5 @@ type StateT = {
     signedUp: boolean
     loggedIn: boolean
     loggedInUserId: string | null
+    loggedInUserToken: string | null
 }
