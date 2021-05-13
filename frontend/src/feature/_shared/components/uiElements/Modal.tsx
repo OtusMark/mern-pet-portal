@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom"
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Backdrop} from "./Backdrop";
 import {Card} from "../layout/Card";
 import styled from "styled-components/macro";

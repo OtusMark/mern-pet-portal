@@ -10,9 +10,9 @@ const instance = axios.create({
 
 // API
 export const placeAPI = {
-    getPlaceByPlaceId(placeId: string) {
-        return instance.get(`/${placeId}`)
-    },
+    // getPlaceByPlaceId(placeId: string) {
+    //     return instance.get(`/${placeId}`)
+    // },
     getPlaceByUserId(userId: string) {
         return instance.get(`/user/${userId}`)
     },

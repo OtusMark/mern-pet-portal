@@ -7,7 +7,7 @@ import {PlaceItem} from "./PlaceItem";
 export const PlaceList: React.FC<PropsT> = (props) => {
 
     const {
-        places
+        places,
     } = props
 
     if (places.length === 0) {
@@ -15,7 +15,7 @@ export const PlaceList: React.FC<PropsT> = (props) => {
             <div>
                 <Card>
                     <h2>No places found. Create new place</h2>
-                    <Button>Share Place</Button>
+                    <Button to="/places/new">Share Place</Button>
                 </Card>
             </div>
         )
@@ -23,7 +23,7 @@ export const PlaceList: React.FC<PropsT> = (props) => {
 
     return (
         <>
-            {places.map(place => <ul><PlaceItem key={place.id} place={place}/></ul>)}
+            {places.map(place => <ul key={place.id}><PlaceItem place={place}/></ul>)}
         </>
     )
 }

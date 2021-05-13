@@ -3,6 +3,23 @@ import {setAppNoteError, setAppNoteSuccess, setAppStatus} from "./app-reducer";
 import {AddPlaceBodyT, placeAPI} from "../../api/places-api";
 
 // Thunks
+export const getPlacesByUserId = createAsyncThunk('place/getPlacesByUserId', async (userId: string, thunkAPI) => {
+
+    thunkAPI.dispatch(setAppStatus('loading'))
+    try {
+        const res = await placeAPI.getPlaceByUserId(userId)
+        if (res.status === 200) {
+
+            thunkAPI.dispatch(setAppStatus('succeeded'))
+            return res.data.places
+        }
+    } catch (err) {
+        thunkAPI.dispatch(setAppStatus('failed'))
+        thunkAPI.dispatch(setAppNoteError(err.response.data.message))
+        return thunkAPI.rejectWithValue([])
+    }
+})
+
 export const addPlace = createAsyncThunk('place/addPlace', async (body: AddPlaceBodyT, thunkAPI) => {
 
     thunkAPI.dispatch(setAppStatus('loading'))
@@ -20,20 +37,47 @@ export const addPlace = createAsyncThunk('place/addPlace', async (body: AddPlace
     }
 })
 
-const initialState: Array<PlaceT> = [
-    {
-        id: '1',
-        title: 'place title',
-        description: 'place description',
-        address: 'place address',
-        image: 'https://i.natgeofe.com/n/c0e0a134-3e97-4b8f-9f7b-9d11f5e1bf02/comedy-wildlife-awards-squirel-stop.jpg',
-        creatorId: 'id-1',
-        coordinates: {
-            lat: 40.7484405,
-            lng: -73.9878584
-        },
+export const deletePlace = createAsyncThunk('place/deletePlace', async (placeId: string, thunkAPI) => {
+
+    thunkAPI.dispatch(setAppStatus('loading'))
+    try {
+        const res = await placeAPI.deletePlace(placeId)
+        if (res.status === 200) {
+
+            thunkAPI.dispatch(setAppStatus('succeeded'))
+            thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
+            return placeId
+        }
+    } catch (err) {
+        thunkAPI.dispatch(setAppStatus('failed'))
+        thunkAPI.dispatch(setAppNoteError(err.response.data.message))
     }
-]
+})
+
+export const updatePlace = createAsyncThunk('place/updatePlace', async (payload: UpdatePlacePayloadT, thunkAPI) => {
+
+    thunkAPI.dispatch(setAppStatus('loading'))
+    try {
+        const res = await placeAPI.updatePlace(payload.placeId,
+            {
+                title: payload.title,
+                description: payload.description,
+            }
+        )
+        if (res.status === 200) {
+
+            thunkAPI.dispatch(setAppStatus('succeeded'))
+            thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
+            return res.data.place
+        }
+    } catch (err) {
+        thunkAPI.dispatch(setAppStatus('failed'))
+        thunkAPI.dispatch(setAppNoteError(err.response.data.message))
+    }
+
+})
+
+const initialState: Array<PlaceT> = []
 
 const slice = createSlice({
     name: 'place',
@@ -41,19 +85,29 @@ const slice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder
+            .addCase(getPlacesByUserId.fulfilled, (state, action) => {
+                return action.payload
+            })
+            .addCase(getPlacesByUserId.rejected, (state, action) => {
+                return []
+            })
+        builder
             .addCase(addPlace.fulfilled, (state, action) => {
+                state.push(action.payload)
+            })
+        builder
+            .addCase(deletePlace.fulfilled, (state, action) => {
+                return state.filter(place => place.id != action.payload)
+            })
+        builder
+            .addCase(updatePlace.fulfilled, (state, action) => {
 
-                const newPlace = {
-                    id: action.payload.id,
-                    title: action.payload.title,
-                    description: action.payload.description,
-                    address: action.payload.address,
-                    image: action.payload.image,
-                    creatorId: action.payload.creatorId,
-                    coordinates: action.payload.coordinates
-                }
-
-                state.push(newPlace)
+                return state.map(place => {
+                        if (place.id === action.payload.placeId) {
+                            return action.payload
+                        } else return place
+                    }
+                )
             })
     }
 })
@@ -72,4 +126,10 @@ export type PlaceT = {
         lat: number
         lng: number
     }
+}
+
+export type UpdatePlacePayloadT = {
+    title: string
+    description: string,
+    placeId: string
 }

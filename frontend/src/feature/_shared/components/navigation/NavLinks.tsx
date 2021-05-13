@@ -28,7 +28,6 @@ export const NavLinks: React.FC = () => {
 }
 
 // Styles
-
 const StyledLi = styled.li`
   padding: 1rem;
 
