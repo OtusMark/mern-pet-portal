@@ -80,4 +80,7 @@ export const GlobalStyles = createGlobalStyle<{ theme: ThemeType}>`
     resize: none;
   }
   
+  ul {
+    list-style: none;
+  }
 `

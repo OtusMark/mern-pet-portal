@@ -31,7 +31,7 @@ export const addPlace = createAsyncThunk('place/addPlace', async (payload: AddPl
 
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
-        const res = await placeAPI.addPlace(body, payload.userToken)
+        const res = await placeAPI.addPlace(payload.token, body)
         if (res.status === 201) {
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
@@ -44,16 +44,16 @@ export const addPlace = createAsyncThunk('place/addPlace', async (payload: AddPl
     }
 })
 
-export const deletePlace = createAsyncThunk('place/deletePlace', async (placeId: string, thunkAPI) => {
+export const deletePlace = createAsyncThunk('place/deletePlace', async (payload: DeletePlacePayloadT, thunkAPI) => {
 
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
-        const res = await placeAPI.deletePlace(placeId)
+        const res = await placeAPI.deletePlace(payload.placeId, payload.token)
         if (res.status === 200) {
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
             thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
-            return placeId
+            return payload.placeId
         }
     } catch (err) {
         thunkAPI.dispatch(setAppStatus('failed'))
@@ -65,12 +65,10 @@ export const updatePlace = createAsyncThunk('place/updatePlace', async (payload:
 
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
-        const res = await placeAPI.updatePlace(payload.placeId,
-            {
-                title: payload.title,
-                description: payload.description,
-            }
-        )
+        const res = await placeAPI.updatePlace(payload.placeId, payload.token, {
+            title: payload.title,
+            description: payload.description
+        })
         if (res.status === 200) {
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
@@ -140,11 +138,17 @@ export type AddPlacePayloadT = {
     description: string
     address: string
     creatorId: string
-    userToken: string
+    token: string
+}
+
+export type DeletePlacePayloadT = {
+    placeId: string,
+    token: string
 }
 
 export type UpdatePlacePayloadT = {
     title: string
     description: string,
-    placeId: string
+    placeId: string,
+    token: string
 }

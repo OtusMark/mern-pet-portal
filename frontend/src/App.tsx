@@ -17,6 +17,45 @@ function App() {
 
     const appStatus = useSelector<AppRootStateT, AppStatusT>(state => state.app.status)
     const notifications = useSelector<AppRootStateT, Array<NotificationT>>(state => state.app.notifications)
+    const token = useSelector<AppRootStateT, string>(state => state.auth.loggedInUserToken as string)
+
+    let routes
+
+    if (token) {
+        routes = (
+            <Switch>
+                <Route path="/" exact>
+                    <Users/>
+                </Route>
+                <Route path="/:userId/places" exact>
+                    <UserPlacesPage/>
+                </Route>
+                <Route path="/places/new" exact>
+                    <AddPlacePage/>
+                </Route>
+                <Route path="/auth">
+                    <AuthPage/>
+                </Route>
+                <Redirect to="/"/>
+            </Switch>
+        )
+    }   else {
+        routes = (
+            <Switch>
+                <Route path="/" exact>
+                    <Users/>
+                </Route>
+                <Route path="/:userId/places" exact>
+                    <UserPlacesPage/>
+                </Route>
+                <Route path="/auth">
+                    <AuthPage/>
+                </Route>
+                <Redirect to="/"/>
+            </Switch>
+        )
+    }
+
 
     return (
         <BrowserRouter>
@@ -25,21 +64,7 @@ function App() {
             <Container>
                 <StyledMain>
                     {appStatus === 'loading' && <Loader/>}
-                    <Switch>
-                        <Route path="/" exact>
-                            <Users/>
-                        </Route>
-                        <Route path="/:userId/places">
-                            <UserPlacesPage/>
-                        </Route>
-                        <Route path="/places/new" exact>
-                            <AddPlacePage/>
-                        </Route>
-                        <Route path="/auth">
-                            <AuthPage/>
-                        </Route>
-                        <Redirect to="/"/>
-                    </Switch>
+                    {routes}
                 </StyledMain>
             </Container>
         </BrowserRouter>

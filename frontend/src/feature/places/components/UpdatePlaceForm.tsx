@@ -14,7 +14,8 @@ export const UpdatePlaceForm: React.FC<PropsT> = (props) => {
     const {
         placeId,
         toggleModal,
-        userId
+        userId,
+        token
     } = props
 
     const dispatch = useDispatch()
@@ -41,7 +42,8 @@ export const UpdatePlaceForm: React.FC<PropsT> = (props) => {
 
             const dispatchValues = {
                 ...values,
-                placeId
+                placeId,
+                token
             }
 
             await dispatch(updatePlace(dispatchValues))
@@ -85,6 +87,7 @@ type PropsT = {
     placeId: string
     toggleModal: () => void
     userId: string
+    token: string
 }
 
 type UpdatePlaceFormT = {

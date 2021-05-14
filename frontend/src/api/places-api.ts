@@ -16,17 +16,26 @@ export const placeAPI = {
     getPlaceByUserId(userId: string) {
         return instance.get(`/user/${userId}`)
     },
-    addPlace(body: AddPlaceBodyT, token: string) {
+    addPlace(token: string, body: AddPlaceBodyT,) {
         return instance.post('/', body, {
             headers: {
-                'Authorization': `Bearer ${token}`}
+                'Authorization': `Bearer ${token}`
+            }
         })
     },
-    updatePlace(placeId: string, body: UpdatedPlaceBodyT) {
-        return instance.patch(`/${placeId}`, body)
+    updatePlace(placeId: string, token: string, body: UpdatedPlaceBodyT) {
+        return instance.patch(`/${placeId}`, body, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
     },
-    deletePlace(placeId: string) {
-        return instance.delete(`/${placeId}`)
+    deletePlace(placeId: string, token: string) {
+        return instance.delete(`/${placeId}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
     },
 }
 

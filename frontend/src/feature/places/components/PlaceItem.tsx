@@ -5,8 +5,9 @@ import {Map} from "../../_shared/components/uiElements/Map";
 import {Card} from "../../_shared/components/layout/Card";
 import {Avatar} from "../../_shared/components/uiElements/Avatar";
 import {Modal} from "../../_shared/components/uiElements/Modal";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {UpdatePlaceForm} from "./UpdatePlaceForm";
+import {AppRootStateT} from "../../../bll/store";
 
 export const PlaceItem: React.FC<PropsT> = (props) => {
 
@@ -16,6 +17,8 @@ export const PlaceItem: React.FC<PropsT> = (props) => {
 
     const dispatch = useDispatch()
 
+    const token = useSelector<AppRootStateT, string>(state => state.auth.loggedInUserToken as string)
+
     const [showMap, setShowMap] = useState(false)
     const [showEdit, setShowEdit] = useState(false)
 
@@ -24,7 +27,7 @@ export const PlaceItem: React.FC<PropsT> = (props) => {
     const toggleEditHandler = () => setShowEdit(!showEdit)
 
     const deletePlaceHandler = () => {
-        dispatch(deletePlace(place.id))
+        dispatch(deletePlace({placeId: place.id, token}))
     }
 
     return (
@@ -52,7 +55,7 @@ export const PlaceItem: React.FC<PropsT> = (props) => {
             </Modal>
 
             <Modal show={showEdit} toggleModal={toggleEditHandler}>
-                <UpdatePlaceForm toggleModal={toggleEditHandler} placeId={place.id} userId={place.creatorId}/>
+                <UpdatePlaceForm toggleModal={toggleEditHandler} placeId={place.id} userId={place.creatorId} token={token}/>
             </Modal>
         </>
     )

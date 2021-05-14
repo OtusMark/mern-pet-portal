@@ -12,7 +12,7 @@ import {AppRootStateT} from "../../../bll/store";
 export const AddPlacePage = () => {
 
     const creatorId = useSelector<AppRootStateT, string>(state => state.auth.loggedInUserId as string)
-    const userToken = useSelector<AppRootStateT, string>(state => state.auth.loggedInUserToken as string)
+    const token = useSelector<AppRootStateT, string>(state => state.auth.loggedInUserToken as string)
     const dispatch = useDispatch()
 
     const formik = useFormik({
@@ -42,7 +42,7 @@ export const AddPlacePage = () => {
             const dispatchValues = {
                 ...values,
                 creatorId,
-                userToken
+                token
             }
 
             dispatch(addPlace(dispatchValues))

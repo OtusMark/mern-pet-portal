@@ -99,7 +99,7 @@ const createPlace = async (req, res, next) => {
         )
     }
 
-    res.status(201).json({place: createdPlace})
+    res.status(201).json({place: createdPlace, message: 'New place created'})
 }
 
 // Update place
