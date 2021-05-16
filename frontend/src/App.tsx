@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {Users} from './feature/user/pages/Users';
 import {AddPlacePage} from "./feature/places/pages/AddPlacePage";
@@ -8,18 +8,36 @@ import {AuthPage} from "./feature/user/pages/AuthPage";
 import {Container} from "./feature/_shared/components/layout/Container";
 import styled from "styled-components/macro";
 import {Loader} from "./feature/_shared/components/uiElements/Loader";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateT} from "./bll/store";
 import {AppStatusT, NotificationT} from "./bll/reducers/app-reducer";
 import {NotificationProvider} from "./feature/_shared/components/notification/NotificationProvider"
+import { logout } from './bll/reducers/auth-reducer';;
 
 function App() {
 
+    const dispatch = useDispatch()
+
     const appStatus = useSelector<AppRootStateT, AppStatusT>(state => state.app.status)
     const notifications = useSelector<AppRootStateT, Array<NotificationT>>(state => state.app.notifications)
-    const token = useSelector<AppRootStateT, string>(state => state.auth.loggedInUserToken as string)
+    const token = useSelector<AppRootStateT, string>(state => state.auth.token as string)
+    const tokenExpiration = useSelector<AppRootStateT, string>(state => state.auth.tokenExpiration as string)
 
     let routes
+    let logoutTimer: ReturnType<typeof setTimeout>
+
+    useEffect(() => {
+        if (token && tokenExpiration) {
+            const remainingTime = Date.parse(tokenExpiration) - new Date().getTime()
+            logoutTimer = setTimeout(() => dispatch(logout()), remainingTime)
+
+            // For checking!
+            console.log(logoutTimer)
+            console.log(remainingTime)
+        } else {
+            clearTimeout(logoutTimer)
+        }
+    }, [token, tokenExpiration])
 
     if (token) {
         routes = (
@@ -55,7 +73,6 @@ function App() {
             </Switch>
         )
     }
-
 
     return (
         <BrowserRouter>

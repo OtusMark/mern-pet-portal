@@ -17,7 +17,7 @@ export const PlaceItem: React.FC<PropsT> = (props) => {
 
     const dispatch = useDispatch()
 
-    const token = useSelector<AppRootStateT, string>(state => state.auth.loggedInUserToken as string)
+    const token = useSelector<AppRootStateT, string>(state => state.auth.token as string)
 
     const [showMap, setShowMap] = useState(false)
     const [showEdit, setShowEdit] = useState(false)

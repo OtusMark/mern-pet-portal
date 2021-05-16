@@ -1,15 +1,23 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 import styled from "styled-components/macro";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateT} from "../../../../bll/store";
+import {Button} from "../uiElements/Button";
+import { logout } from '../../../../bll/reducers/auth-reducer';
 
 export const NavLinks: React.FC = () => {
 
+    const dispatch = useDispatch()
+
     const loggedInUserId = useSelector<AppRootStateT, string | null>(state => state.auth.loggedInUserId)
-    const token = useSelector<AppRootStateT, string>(state => state.auth.loggedInUserToken as string)
+    const token = useSelector<AppRootStateT, string>(state => state.auth.token as string)
 
     let navLinks
+
+    const userLogout = () => {
+        dispatch(logout())
+    }
 
     if (token) {
         navLinks = (
@@ -25,6 +33,9 @@ export const NavLinks: React.FC = () => {
                 </StyledLi>
                 <StyledLi>
                     <NavLink to="/auth">Authenticate</NavLink>
+                </StyledLi>
+                <StyledLi>
+                    <Button onClick={userLogout}>Logout</Button>
                 </StyledLi>
             </ul>
         )

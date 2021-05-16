@@ -14,11 +14,11 @@ const rootReducer = combineReducers({
 
 let preloadedState = {
     auth: {
-        loggedInUserToken: JSON.parse(localStorage.getItem('token') as string),
+        token: JSON.parse(localStorage.getItem('token') as string),
+        tokenExpiration: JSON.parse(localStorage.getItem('token-expiration') as string),
         loggedInUserId: JSON.parse(localStorage.getItem('user-id') as string)
     }
 }
-
 
 export const store = configureStore({
     reducer: rootReducer,
@@ -27,7 +27,8 @@ export const store = configureStore({
 })
 
 store.subscribe(() => {
-    localStorage.setItem('token', JSON.stringify(store.getState().auth.loggedInUserToken))
+    localStorage.setItem('token', JSON.stringify(store.getState().auth.token))
+    localStorage.setItem('token-expiration', JSON.stringify(store.getState().auth.tokenExpiration))
     localStorage.setItem('user-id', JSON.stringify(store.getState().auth.loggedInUserId))
 })
 

@@ -43,15 +43,21 @@ export const login = createAsyncThunk('auth/login', async (body: LoginBodyT, thu
 // Slice
 const initialState: StateT = {
     signedUp: false,
-    loggedIn: false,
     loggedInUserId: null,
-    loggedInUserToken: null
+    token: null,
+    tokenExpiration: null
 }
 
 const slice = createSlice({
     name: 'auth',
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        logout(state) {
+            state.loggedInUserId = null
+            state.token = null
+            state.tokenExpiration = null
+        }
+    },
     extraReducers: builder => {
         builder
             .addCase(signup.fulfilled, state => {
@@ -60,9 +66,9 @@ const slice = createSlice({
         builder
             .addCase(login.fulfilled, (state, action) => {
                 console.log('fulfilled')
-                state.loggedIn = !!action.payload.token
                 state.loggedInUserId = action.payload.userId
-                state.loggedInUserToken = action.payload.token
+                state.token = action.payload.token
+                state.tokenExpiration = (new Date(new Date().getTime() + 1000 * 60 * 60)).toISOString()
             })
             .addCase(login.rejected, (state) => {
                 return state
@@ -71,11 +77,12 @@ const slice = createSlice({
 })
 
 export const authReducer = slice.reducer
+export const {logout} = slice.actions
 
 // Types
 type StateT = {
     signedUp: boolean
-    loggedIn: boolean
     loggedInUserId: string | null
-    loggedInUserToken: string | null
+    token: string | null
+    tokenExpiration: string | null
 }
