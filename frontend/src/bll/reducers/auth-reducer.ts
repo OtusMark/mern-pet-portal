@@ -65,7 +65,6 @@ const slice = createSlice({
             })
         builder
             .addCase(login.fulfilled, (state, action) => {
-                console.log('fulfilled')
                 state.loggedInUserId = action.payload.userId
                 state.token = action.payload.token
                 state.tokenExpiration = (new Date(new Date().getTime() + 1000 * 60 * 60)).toISOString()

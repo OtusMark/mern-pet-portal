@@ -7,6 +7,9 @@ import {Card} from "../../_shared/components/layout/Card";
 import {Button} from "../../_shared/components/uiElements/Button";
 import {useDispatch} from "react-redux";
 import {signup} from "../../../bll/reducers/auth-reducer";
+import {ImageUpload} from "../../_shared/components/form/ImageUpload";
+import React from "react";
+import {ImagePreview} from "../../_shared/components/form/ImagePreview";
 
 export const SignupForm = () => {
 
@@ -29,40 +32,59 @@ export const SignupForm = () => {
             } else if (values.password.length < 6) {
                 errors.password = 'Password must be higher then 5'
             }
+            if (!values.image) {
+                errors.image = 'Image is required'
+            }
+            // !I! Add validation of image format!
             return errors
         },
         initialValues: {
             name: '',
             email: '',
             password: '',
+            image: ''
         },
         onSubmit: (values, formikHelpers: FormikHelpers<SignupFormValueT>) => {
 
-            dispatch(signup(values))
-            formikHelpers.resetForm()
+            console.log(values)
+
+            // dispatch(signup(values))
+            // formikHelpers.resetForm()
         }
     })
 
     return (
         <StyledCard>
             <StyledForm onSubmit={formik.handleSubmit}>
+
+                <ImagePreview imageFile={formik.values.image}/>
                 <InputWrapper>
-                    <Input placeholder="Name"
-                           type="text"
+                    <ImageUpload id='image'
+                                 name='image'
+                                 accept='.jpg,.png,.jpeg'
+                                 error={formik.errors.image}
+                                 onChange={(event: any) => {
+                                     formik.setFieldValue('image', event.currentTarget.files[0]);
+                                 }}/>
+                </InputWrapper>
+
+                <InputWrapper>
+                    <Input placeholder='Name'
+                           type='text'
                            error={formik.errors.name}
                            {...formik.getFieldProps('name')}/>
                 </InputWrapper>
 
                 <InputWrapper>
-                    <Input placeholder="Email"
-                           type="text"
+                    <Input placeholder='Email'
+                           type='text'
                            error={formik.errors.email}
                            {...formik.getFieldProps('email')}/>
                 </InputWrapper>
 
                 <InputWrapper>
-                    <Input placeholder="Password"
-                           type="text"
+                    <Input placeholder='Password'
+                           type='text'
                            error={formik.errors.password}
                            {...formik.getFieldProps('password')}/>
                 </InputWrapper>
@@ -83,10 +105,12 @@ type SignupFormValueT = {
     name: string
     email: string
     password: string
+    image: any // !I! Replace any
 }
 
 type SignupFormErrorT = {
     name?: string
     email?: string
     password?: string
+    image?: any // !I! Replace any
 }

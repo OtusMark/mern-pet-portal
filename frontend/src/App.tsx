@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateT} from "./bll/store";
 import {AppStatusT, NotificationT} from "./bll/reducers/app-reducer";
 import {NotificationProvider} from "./feature/_shared/components/notification/NotificationProvider"
-import { logout } from './bll/reducers/auth-reducer';;
+import {logout} from './bll/reducers/auth-reducer';
 
 function App() {
 
@@ -57,7 +57,7 @@ function App() {
                 <Redirect to="/"/>
             </Switch>
         )
-    }   else {
+    } else {
         routes = (
             <Switch>
                 <Route path="/" exact>
