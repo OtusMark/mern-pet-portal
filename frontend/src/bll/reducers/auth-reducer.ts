@@ -1,13 +1,20 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {LoginBodyT, SignupBodyT, userAPI} from "../../api/user-api";
+import {LoginBodyT, userAPI} from "../../api/user-api";
 import {setAppNoteError, setAppNoteSuccess, setAppStatus} from "./app-reducer";
+import {SignupFormSubmitT} from "../../feature/user/components/SignupForm";
 
 // Thunks
-export const signup = createAsyncThunk('auth/signup', async (body: SignupBodyT, thunkAPI) => {
+export const signup = createAsyncThunk('auth/signup', async (body: SignupFormSubmitT, thunkAPI) => {
+
+    const formData = new FormData()
+    formData.append('name', body.name)
+    formData.append('password', body.password)
+    formData.append('email', body.email)
+    formData.append('image', body.image as File)
 
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
-        const res = await userAPI.signup(body)
+        const res = await userAPI.signup(formData)
         if (res.status === 201) {
 
             thunkAPI.dispatch(setAppStatus('succeeded'))

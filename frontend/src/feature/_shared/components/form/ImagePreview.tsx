@@ -7,12 +7,11 @@ export const ImagePreview: React.FC<PropsT> = props => {
         imageFile
     } = props
 
-    const [previewUrl, setPreviewUrl] = useState<any>()
-
-    console.log(imageFile)
+    const [previewUrl, setPreviewUrl] = useState<any>() // !I! Handle any
 
     useEffect(() => {
         if (!imageFile) {
+            setPreviewUrl(null)
             return
         }
         const fileReader = new FileReader()
@@ -46,5 +45,5 @@ const ImagePreviewMain = styled.div`
 
 // Types
 type PropsT = {
-    imageFile: any
+    imageFile: File | null
 }

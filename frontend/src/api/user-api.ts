@@ -2,15 +2,12 @@ import axios from 'axios'
 
 // Instance
 const instance = axios.create({
-    baseURL: 'http://localhost:5000/api/users',
-    headers: {
-        'Content-Type': 'application/json'
-    }
+    baseURL: 'http://localhost:5000/api/users'
 })
 
 // API
 export const userAPI = {
-    signup(body: SignupBodyT) {
+    signup(body: FormData) {
         return instance.post('/signup', body)
     },
     login(body: LoginBodyT) {
@@ -22,11 +19,6 @@ export const userAPI = {
 }
 
 // Types
-export type SignupBodyT = {
-    name: string,
-    email: string,
-    password: string
-}
 
 export type LoginBodyT = {
     email: string,

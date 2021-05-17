@@ -6,10 +6,10 @@ import styled from "styled-components/macro";
 import {Card} from "../../_shared/components/layout/Card";
 import {Button} from "../../_shared/components/uiElements/Button";
 import {useDispatch} from "react-redux";
-import {signup} from "../../../bll/reducers/auth-reducer";
 import {ImageUpload} from "../../_shared/components/form/ImageUpload";
 import React from "react";
 import {ImagePreview} from "../../_shared/components/form/ImagePreview";
+import {signup} from "../../../bll/reducers/auth-reducer";
 
 export const SignupForm = () => {
 
@@ -42,14 +42,13 @@ export const SignupForm = () => {
             name: '',
             email: '',
             password: '',
-            image: ''
+            image: null
         },
-        onSubmit: (values, formikHelpers: FormikHelpers<SignupFormValueT>) => {
-
+        onSubmit: (values: SignupFormSubmitT, formikHelpers: FormikHelpers<any>) => {
             console.log(values)
 
-            // dispatch(signup(values))
-            // formikHelpers.resetForm()
+            dispatch(signup(values))
+            formikHelpers.resetForm()
         }
     })
 
@@ -101,16 +100,16 @@ const StyledCard = styled(Card)`
 `
 
 // Types
-type SignupFormValueT = {
-    name: string
-    email: string
-    password: string
-    image: any // !I! Replace any
-}
-
 type SignupFormErrorT = {
     name?: string
     email?: string
     password?: string
-    image?: any // !I! Replace any
+    image?: string
+}
+
+export type SignupFormSubmitT = {
+    name: string,
+    email: string,
+    password: string
+    image: File | null
 }
