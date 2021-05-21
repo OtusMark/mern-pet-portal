@@ -1,4 +1,9 @@
-import {darken, lighten} from "polished";
+import { DefaultTheme } from 'styled-components'
+import {darken, lighten} from 'polished'
+
+declare module 'styled-components' {
+    export interface DefaultTheme extends ThemeT {}
+}
 
 const primaryColor = '#d519ff'
 const secondaryColor = '#ffa940'
@@ -47,6 +52,7 @@ export const theme = {
             s3: '0.512rem',
             s2: '0.64rem',
             s1: '0.8rem',
+            default: '1rem',
             defaultXL: '22px', // 4k
             defaultL: '16px', // laptop:
             defaultM: '14px', // tablet:
@@ -72,4 +78,4 @@ export const theme = {
 };
 
 // Types
-export type ThemeType = typeof theme;
+export type ThemeT = typeof theme;

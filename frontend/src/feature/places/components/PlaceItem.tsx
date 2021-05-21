@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {deletePlace, PlaceT} from "../../../bll/reducers/place-reducer";
-import {Button} from "../../_shared/components/uiElements/Button";
-import {Map} from "../../_shared/components/uiElements/Map";
-import {Card} from "../../_shared/components/layout/Card";
-import {Avatar} from "../../_shared/components/uiElements/Avatar";
-import {Modal} from "../../_shared/components/uiElements/Modal";
+import {Button} from "../../../shared/components/uiElements/Button";
+import {Map} from "../../../shared/components/uiElements/Map";
+import {Card} from "../../../shared/components/layout/Card";
+import {Avatar} from "../../../shared/components/uiElements/Avatar";
+import {Modal} from "../../../shared/components/uiElements/Modal";
 import {useDispatch, useSelector} from "react-redux";
 import {UpdatePlaceForm} from "./UpdatePlaceForm";
 import {AppRootStateT} from "../../../bll/store";

@@ -1,7 +1,6 @@
-import {createGlobalStyle} from "styled-components/macro";
-import {ThemeType} from "./theme";
+import {createGlobalStyle} from 'styled-components/macro';
 
-export const NormalizeCss = createGlobalStyle<{ theme: ThemeType}>`
+export const NormalizeCss = createGlobalStyle`
   /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
   /* Document

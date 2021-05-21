@@ -2,9 +2,9 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import styled from "styled-components/macro";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateT} from "../../../../bll/store";
+import {AppRootStateT} from "../../../bll/store";
 import {Button} from "../uiElements/Button";
-import { logout } from '../../../../bll/reducers/auth-reducer';
+import { logout } from '../../../bll/reducers/auth-reducer';
 
 export const NavLinks: React.FC = () => {
 

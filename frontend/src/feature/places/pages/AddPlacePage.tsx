@@ -1,10 +1,10 @@
 import {FormikHelpers, useFormik} from "formik";
 import styled from "styled-components/macro";
-import {Button} from "../../_shared/components/uiElements/Button";
-import {Input} from "../../_shared/components/form/Input";
-import {Card} from "../../_shared/components/layout/Card";
-import {InputWrapper} from "../../_shared/components/form/InputWrapper";
-import {StyledForm} from "../../_shared/components/form/StyledForm";
+import {Button} from "../../../shared/components/uiElements/Button";
+import {Input} from "../../../shared/components/form/Input";
+import {Card} from "../../../shared/components/layout/Card";
+import {InputWrapper} from "../../../shared/components/form/InputWrapper";
+import {StyledForm} from "../../../shared/components/form/StyledForm";
 import {addPlace} from "../../../bll/reducers/place-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateT} from "../../../bll/store";
@@ -69,10 +69,8 @@ export const AddPlacePage = () => {
                     </InputWrapper>
 
                     <InputWrapper>
-                        <Input isTextarea
-                               placeholder="Place description"
+                        <Input placeholder="Place description"
                                type="text"
-                               rows={6}
                                error={formik.errors.description}
                                {...formik.getFieldProps('description')}/>
                     </InputWrapper>

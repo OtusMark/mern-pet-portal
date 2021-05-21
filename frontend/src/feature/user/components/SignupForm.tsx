@@ -1,14 +1,14 @@
 import {FormikHelpers, useFormik} from "formik";
-import {StyledForm} from "../../_shared/components/form/StyledForm";
-import {InputWrapper} from "../../_shared/components/form/InputWrapper";
-import {Input} from "../../_shared/components/form/Input";
+import {StyledForm} from "../../../shared/components/form/StyledForm";
+import {InputWrapper} from "../../../shared/components/form/InputWrapper";
+import {Input} from "../../../shared/components/form/Input";
 import styled from "styled-components/macro";
-import {Card} from "../../_shared/components/layout/Card";
-import {Button} from "../../_shared/components/uiElements/Button";
+import {Card} from "../../../shared/components/layout/Card";
+import {Button} from "../../../shared/components/uiElements/Button";
 import {useDispatch} from "react-redux";
-import {ImageUpload} from "../../_shared/components/form/ImageUpload";
+import {ImageUpload} from "../../../shared/components/form/ImageUpload";
 import React from "react";
-import {ImagePreview} from "../../_shared/components/form/ImagePreview";
+import {ImagePreview} from "../../../shared/components/form/ImagePreview";
 import {signup} from "../../../bll/reducers/auth-reducer";
 
 export const SignupForm = () => {

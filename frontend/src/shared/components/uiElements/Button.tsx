@@ -46,7 +46,7 @@ export const Button: React.FC<PropsT> = (props) => {
 }
 
 // Styles
-const StyledButton = styled.button<StyledComponentProps<any, any, any, any>>`
+const StyledButton = styled.button`
   border: none;
   border-radius: 3px;
   cursor: ${({ disabled }) => disabled ? "default" : "pointer"};
@@ -64,7 +64,7 @@ const StyledButton = styled.button<StyledComponentProps<any, any, any, any>>`
   &:hover {
     background-color: ${({ theme, disabled }) => disabled ? 'none' : theme.color.primary.dark};
     transform: ${({ disabled }) => disabled ? 'none' : 'translateY(-0.1em)'};
-    box-shadow: ${({ theme, disabled }) => disabled ? theme.shadow['1'] : theme.shadow['4']};
+    box-shadow: ${({ theme, disabled }) => disabled ? theme.shadow['1'] : theme.shadow['3']};
   }
   
   &:active {

@@ -1,7 +1,7 @@
 import React from "react";
 import {PlaceT} from "../../../bll/reducers/place-reducer";
-import {Card} from "../../_shared/components/layout/Card";
-import {Button} from "../../_shared/components/uiElements/Button";
+import {Card} from "../../../shared/components/layout/Card";
+import {Button} from "../../../shared/components/uiElements/Button";
 import {PlaceItem} from "./PlaceItem";
 
 export const PlaceList: React.FC<PropsT> = (props) => {

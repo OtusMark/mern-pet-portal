@@ -59,7 +59,7 @@ const StyledLabel = styled.label`
   &:hover {
     background-color: ${({theme}) => theme.color.primary.dark};
     transform: translateY(-0.1em);
-    box-shadow: ${({theme}) => theme.shadow['4']};
+    box-shadow: ${({theme}) => theme.shadow['3']};
   }
 
   &:active {

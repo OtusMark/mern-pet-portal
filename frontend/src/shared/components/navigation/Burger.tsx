@@ -1,6 +1,6 @@
 import styled, {StyledComponentProps} from "styled-components/macro";
 import React from "react";
-import {ThemeType} from "../../../../styles/theme";
+import {ThemeT} from "../../../styles/theme";
 
 type DefaultDivType = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 
@@ -24,11 +24,11 @@ export const Burger: React.FC<PropsType> = (props) => {
     )
 }
 
-const BurgerMain = styled.div<StyledComponentProps<any, ThemeType, any, any>>`
+const BurgerMain = styled.div<StyledComponentProps<any, ThemeT, any, any>>`
   cursor: pointer;
 `
 
-const Line = styled.div<{ theme: ThemeType }>`
+const Line = styled.div<{ theme: ThemeT }>`
   position: relative;
   
   width: 25px;

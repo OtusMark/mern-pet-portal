@@ -2,16 +2,16 @@ import React, {useEffect} from 'react';
 import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {Users} from './feature/user/pages/Users';
 import {AddPlacePage} from "./feature/places/pages/AddPlacePage";
-import {MainNavigation} from "./feature/_shared/components/navigation/MainNavigation";
+import {MainNavigation} from "./shared/components/navigation/MainNavigation";
 import {UserPlacesPage} from "./feature/places/pages/UserPlacesPage";
 import {AuthPage} from "./feature/user/pages/AuthPage";
-import {Container} from "./feature/_shared/components/layout/Container";
+import {Container} from "./shared/components/layout/Container";
 import styled from "styled-components/macro";
-import {Loader} from "./feature/_shared/components/uiElements/Loader";
+import {Loader} from "./shared/components/uiElements/Loader";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateT} from "./bll/store";
 import {AppStatusT, NotificationT} from "./bll/reducers/app-reducer";
-import {NotificationProvider} from "./feature/_shared/components/notification/NotificationProvider"
+import {NotificationProvider} from "./shared/components/notification/NotificationProvider"
 import {logout} from './bll/reducers/auth-reducer';
 
 function App() {
@@ -82,6 +82,7 @@ function App() {
                 <StyledMain>
                     {appStatus === 'loading' && <Loader/>}
                     {routes}
+                    Test text
                 </StyledMain>
             </Container>
         </BrowserRouter>

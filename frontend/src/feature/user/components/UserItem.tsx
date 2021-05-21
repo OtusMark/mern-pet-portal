@@ -1,7 +1,7 @@
 import React from "react";
-import {Avatar} from "../../_shared/components/uiElements/Avatar";
+import {Avatar} from "../../../shared/components/uiElements/Avatar";
 import {Link} from "react-router-dom";
-import { Card } from "../../_shared/components/layout/Card";
+import { Card } from "../../../shared/components/layout/Card";
 
 export const UserItem: React.FC<PropsT> = (props) => {
 
