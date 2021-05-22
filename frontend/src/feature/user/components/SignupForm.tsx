@@ -1,15 +1,15 @@
-import {FormikHelpers, useFormik} from "formik";
-import {StyledForm} from "../../../shared/components/form/StyledForm";
-import {InputWrapper} from "../../../shared/components/form/InputWrapper";
-import {Input} from "../../../shared/components/form/Input";
-import styled from "styled-components/macro";
-import {Card} from "../../../shared/components/layout/Card";
-import {Button} from "../../../shared/components/uiElements/Button";
-import {useDispatch} from "react-redux";
-import {ImageUpload} from "../../../shared/components/form/ImageUpload";
-import React from "react";
-import {ImagePreview} from "../../../shared/components/form/ImagePreview";
-import {signup} from "../../../bll/reducers/auth-reducer";
+import {FormikHelpers, useFormik} from 'formik'
+import {StyledForm} from '../../../shared/components/form/StyledForm'
+import {InputWrapper} from '../../../shared/components/form/InputWrapper'
+import {Input} from '../../../shared/components/form/Input'
+import styled from 'styled-components/macro'
+import {Card} from '../../../shared/components/layout/Card'
+import {Button} from '../../../shared/components/uiElements/Button'
+import {useDispatch} from 'react-redux'
+import {ImageUpload} from '../../../shared/components/form/ImageUpload'
+import React from 'react'
+import {ImagePreview} from '../../../shared/components/form/ImagePreview'
+import {signup} from '../../../bll/reducers/auth-reducer'
 
 export const SignupForm = () => {
 
@@ -19,6 +19,7 @@ export const SignupForm = () => {
 
         validate: (values) => {
             const errors: SignupFormErrorT = {}
+            const AllowedImageTypes = ['image/gif', 'image/jpeg', 'image/png']
             if (!values.name) {
                 errors.name = 'Name is required'
             }
@@ -33,16 +34,19 @@ export const SignupForm = () => {
                 errors.password = 'Password must be higher then 5'
             }
             if (!values.image) {
-                errors.image = 'Image is required'
+                errors.image = 'Avatar is required'
+            } else { // @ts-ignore !I! Check for undefined is not working...
+                if (!AllowedImageTypes.includes(values.image.type)) {
+                    errors.image = 'Image must be in JPG, PNG or GIF format'
+                }
             }
-            // !I! Add validation of image format!
             return errors
         },
         initialValues: {
             name: '',
             email: '',
             password: '',
-            image: null
+            image: undefined
         },
         onSubmit: (values: SignupFormSubmitT, formikHelpers: FormikHelpers<any>) => {
             console.log(values)
@@ -63,7 +67,7 @@ export const SignupForm = () => {
                                  accept='.jpg,.png,.jpeg'
                                  error={formik.errors.image}
                                  onChange={(event: any) => {
-                                     formik.setFieldValue('image', event.currentTarget.files[0]);
+                                     formik.setFieldValue('image', event.currentTarget.files[0])
                                  }}/>
                 </InputWrapper>
 
@@ -111,5 +115,5 @@ export type SignupFormSubmitT = {
     name: string,
     email: string,
     password: string
-    image: File | null
+    image: File | undefined
 }

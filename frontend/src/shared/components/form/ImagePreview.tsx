@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import styled from "styled-components/macro";
+import avatarDefault from '../../../assets/image/avatarDefault.png'
 
 export const ImagePreview: React.FC<PropsT> = props => {
 
@@ -7,11 +8,11 @@ export const ImagePreview: React.FC<PropsT> = props => {
         imageFile
     } = props
 
-    const [previewUrl, setPreviewUrl] = useState<any>() // !I! Handle any
+    const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null | undefined>(avatarDefault)
 
     useEffect(() => {
         if (!imageFile) {
-            setPreviewUrl(null)
+            setPreviewUrl(avatarDefault)
             return
         }
         const fileReader = new FileReader()
@@ -23,7 +24,7 @@ export const ImagePreview: React.FC<PropsT> = props => {
 
     return (
         <ImagePreviewMain>
-            <img src={previewUrl} alt=''/>
+            <img src={previewUrl as string} alt=''/>
         </ImagePreviewMain>
     )
 }
@@ -45,5 +46,5 @@ const ImagePreviewMain = styled.div`
 
 // Types
 type PropsT = {
-    imageFile: File | null
+    imageFile: File | undefined
 }

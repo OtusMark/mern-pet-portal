@@ -15,8 +15,6 @@ export const ImageUpload: React.FC<PropsT> = props => {
 
     const filePickerRef = useRef()
 
-    console.log('filePickerRef ', filePickerRef)
-
     return (
         <ImageUploadMain>
             <StyledInput type='file' id={id} ref={filePickerRef} hidden {...restProps} />
@@ -28,6 +26,7 @@ export const ImageUpload: React.FC<PropsT> = props => {
     )
 }
 
+// Styles
 const ImageUploadMain = styled.div`
   display: flex;
   flex-direction: column;

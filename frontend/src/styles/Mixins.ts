@@ -1,6 +1,6 @@
 import {css} from 'styled-components/macro'
 
-export const InputMixin = ({fontSize, fontFamily}: InputMixinT) => css`
+export const TextInputMixin = ({fontSize, fontFamily}: InputMixinT) => css`
   padding: .5rem .5rem;
 
   width: 100%;

@@ -8,6 +8,7 @@ import {StyledForm} from "../../../shared/components/form/StyledForm";
 import {addPlace} from "../../../bll/reducers/place-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateT} from "../../../bll/store";
+import {Textarea} from '../../../shared/components/form/textarea'
 
 export const AddPlacePage = () => {
 
@@ -55,24 +56,23 @@ export const AddPlacePage = () => {
             <StyledCard>
                 <StyledForm onSubmit={formik.handleSubmit}>
                     <InputWrapper>
-                        <Input placeholder="Place title"
-                               type="text"
+                        <Input placeholder='Place title'
+                               type='text'
                                error={formik.errors.title}
                                {...formik.getFieldProps('title')}/>
                     </InputWrapper>
 
                     <InputWrapper>
-                        <Input placeholder="Place address"
-                               type="text"
+                        <Input placeholder='Place address'
+                               type='text'
                                error={formik.errors.address}
                                {...formik.getFieldProps('address')}/>
                     </InputWrapper>
 
                     <InputWrapper>
-                        <Input placeholder="Place description"
-                               type="text"
-                               error={formik.errors.description}
-                               {...formik.getFieldProps('description')}/>
+                        <Textarea placeholder="Place description"
+                                  error={formik.errors.description}
+                                  {...formik.getFieldProps('description')}/>
                     </InputWrapper>
 
                     <Button type='submit'>Add place</Button>
