@@ -82,7 +82,6 @@ function App() {
                 <StyledMain>
                     {appStatus === 'loading' && <Loader/>}
                     {routes}
-                    Test text
                 </StyledMain>
             </Container>
         </BrowserRouter>

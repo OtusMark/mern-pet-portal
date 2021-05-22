@@ -9,8 +9,8 @@ export const getUsers = createAsyncThunk('user/getUsers', async (param, thunkAPI
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
         const res = await userAPI.getUsers()
+        console.log(res)
         if (res.status === 200) {
-
             thunkAPI.dispatch(setAppStatus('succeeded'))
             return res.data.users
         }
@@ -34,7 +34,7 @@ const slice = createSlice({
                     return {
                         id: user.id,
                         name: user.name,
-                        image: user.image,
+                        image: `http://localhost:5000/${user.image}`,
                         places: user.places
                     }
                 })

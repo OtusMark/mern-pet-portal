@@ -57,7 +57,7 @@ const signup = async (req, res, next) => {
         name,
         email,
         password: hashedPassword,
-        image: 'https://i.imgflip.com/3hevtb.jpg',
+        image: req.file.path.split('\\').join('/'),
         places: []
     })
 
