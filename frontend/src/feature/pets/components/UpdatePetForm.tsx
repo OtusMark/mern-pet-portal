@@ -6,13 +6,13 @@ import styled from "styled-components/macro";
 import {Card} from "../../../shared/components/layout/Card";
 import {Button} from "../../../shared/components/uiElements/Button";
 import {useDispatch} from "react-redux";
-import {getPlacesByUserId, updatePlace} from "../../../bll/reducers/place-reducer";
+import {getPetsByUserId, updatePet} from "../../../bll/reducers/pet-reducer";
 import React from "react";
 
-export const UpdatePlaceForm: React.FC<PropsT> = (props) => {
+export const UpdatePetForm: React.FC<PropsT> = (props) => {
 
     const {
-        placeId,
+        petId,
         toggleModal,
         userId,
         token
@@ -23,8 +23,8 @@ export const UpdatePlaceForm: React.FC<PropsT> = (props) => {
     const formik = useFormik({
 
         validate: (values) => {
-            const errors: UpdatePlaceFormErrorT = {}
-            if (!values.title) {
+            const errors: UpdatePetFormErrorT = {}
+            if (!values.name) {
                 errors.title = 'Title is required'
             }
             if (!values.description) {
@@ -35,19 +35,19 @@ export const UpdatePlaceForm: React.FC<PropsT> = (props) => {
             return errors
         },
         initialValues: {
-            title: '',
+            name: '',
             description: '',
         },
-        onSubmit: async (values, formikHelpers: FormikHelpers<UpdatePlaceFormT>) => {
+        onSubmit: async (values, formikHelpers: FormikHelpers<UpdatePetFormT>) => {
 
             const dispatchValues = {
                 ...values,
-                placeId,
+                petId,
                 token
             }
 
-            await dispatch(updatePlace(dispatchValues))
-            await dispatch(getPlacesByUserId(userId))
+            await dispatch(updatePet(dispatchValues))
+            await dispatch(getPetsByUserId(userId))
             await toggleModal()
             formikHelpers.resetForm()
         }
@@ -58,10 +58,10 @@ export const UpdatePlaceForm: React.FC<PropsT> = (props) => {
             <StyledForm onSubmit={formik.handleSubmit}>
 
                 <InputWrapper>
-                    <Input placeholder="New title"
+                    <Input placeholder="New name"
                            type="text"
-                           error={formik.errors.title}
-                           {...formik.getFieldProps('title')}/>
+                           error={formik.errors.name}
+                           {...formik.getFieldProps('name')}/>
                 </InputWrapper>
 
                 <InputWrapper>
@@ -84,18 +84,18 @@ const StyledCard = styled(Card)`
 
 // Types
 type PropsT = {
-    placeId: string
+    petId: string
     toggleModal: () => void
     userId: string
     token: string
 }
 
-type UpdatePlaceFormT = {
-    title: string
+type UpdatePetFormT = {
+    name: string
     description: string
 }
 
-type UpdatePlaceFormErrorT = {
+type UpdatePetFormErrorT = {
     title?: string
     description?: string
 }

@@ -1,25 +1,24 @@
 import React, {useEffect} from "react"
-import {getPlacesByUserId, PlaceT} from "../../../bll/reducers/place-reducer";
+import {getPetsByUserId, PetT} from "../../../bll/reducers/pet-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateT} from "../../../bll/store";
-import {PlaceList} from "../components/PlaceList";
+import {PetList} from "../components/PetList";
 import {useParams} from "react-router-dom";
 import {ParamsT} from "../../../App";
 
-export const UserPlacesPage = () => {
-
+export const UserPetPage = () => {
 
     const userId = useParams<ParamsT>().userId
 
-    const UserPlaces = useSelector<AppRootStateT, Array<PlaceT>>(state => state.place)
+    const UserPets = useSelector<AppRootStateT, Array<PetT>>(state => state.pet)
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getPlacesByUserId(userId))
+        dispatch(getPetsByUserId(userId))
     }, [])
 
     return (
-        <PlaceList places={UserPlaces}/>
+        <PetList pets={UserPets}/>
     )
 }

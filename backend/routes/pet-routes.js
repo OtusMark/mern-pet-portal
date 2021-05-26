@@ -1,42 +1,41 @@
 const express = require('express')
 const {check} = require('express-validator')
-const placesControllers = require('../controllers/places-controllers')
+const petsControllers = require('../controllers/pets-controllers')
 const checkAuth = require('../middleware/check-auth')
+const fileUpload = require('../middleware/file-upload')
 
 const router = express.Router()
 
-router.get('/:placeId', placesControllers.getPlaceById)
+router.get('/:petId', petsControllers.getPetById)
 
-router.get('/user/:userId', placesControllers.getPlacesByUserId)
+router.get('/user/:userId', petsControllers.getPetsByUserId)
 
 // Blocked for unauthenticated users
 router.use(checkAuth)
 
 router.post(
     '/',
+    fileUpload.single('image'),
     [
-        check('title')
+        check('name')
             .not()
             .isEmpty(),
         check('description').isLength({min: 5}),
-        check('address')
-            .not()
-            .isEmpty()
     ],
-    placesControllers.createPlace
+    petsControllers.createPet
 )
 
 router.patch(
-    '/:placeId',
+    '/:petId',
     [
-        check('title')
+        check('name')
             .not()
             .isEmpty(),
         check('description').isLength({min: 5})
     ],
-    placesControllers.updatePlace
+    petsControllers.updatePet
 )
 
-router.delete('/:placeId', placesControllers.deletePlace)
+router.delete('/:petId', petsControllers.deletePet)
 
 module.exports = router

@@ -1,18 +1,18 @@
-import React, {useEffect} from 'react';
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
-import {Users} from './feature/user/pages/Users';
-import {AddPlacePage} from "./feature/places/pages/AddPlacePage";
-import {MainNavigation} from "./shared/components/navigation/MainNavigation";
-import {UserPlacesPage} from "./feature/places/pages/UserPlacesPage";
-import {AuthPage} from "./feature/user/pages/AuthPage";
-import {Container} from "./shared/components/layout/Container";
-import styled from "styled-components/macro";
-import {Loader} from "./shared/components/uiElements/Loader";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateT} from "./bll/store";
-import {AppStatusT, NotificationT} from "./bll/reducers/app-reducer";
-import {NotificationProvider} from "./shared/components/notification/NotificationProvider"
-import {logout} from './bll/reducers/auth-reducer';
+import React, {useEffect} from 'react'
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
+import {Users} from './feature/user/pages/Users'
+import {AddPetPage} from './feature/pets/pages/AddPetPage'
+import {MainNavigation} from './shared/components/navigation/MainNavigation'
+import {UserPetPage} from './feature/pets/pages/UserPetPage'
+import {AuthPage} from './feature/user/pages/AuthPage'
+import {Container} from './shared/components/layout/Container'
+import styled from 'styled-components/macro'
+import {Loader} from './shared/components/uiElements/Loader'
+import {useDispatch, useSelector} from 'react-redux'
+import {AppRootStateT} from './bll/store'
+import {AppStatusT, NotificationT} from './bll/reducers/app-reducer'
+import {NotificationProvider} from './shared/components/notification/NotificationProvider'
+import {logout} from './bll/reducers/auth-reducer'
 
 function App() {
 
@@ -42,34 +42,34 @@ function App() {
     if (token) {
         routes = (
             <Switch>
-                <Route path="/" exact>
+                <Route path='/' exact>
                     <Users/>
                 </Route>
-                <Route path="/:userId/places" exact>
-                    <UserPlacesPage/>
+                <Route path='/:userId/pets' exact>
+                    <UserPetPage/>
                 </Route>
-                <Route path="/places/new" exact>
-                    <AddPlacePage/>
+                <Route path='/pets/new' exact>
+                    <AddPetPage/>
                 </Route>
-                <Route path="/auth">
+                <Route path='/auth'>
                     <AuthPage/>
                 </Route>
-                <Redirect to="/"/>
+                <Redirect to='/'/>
             </Switch>
         )
     } else {
         routes = (
             <Switch>
-                <Route path="/" exact>
+                <Route path='/' exact>
                     <Users/>
                 </Route>
-                <Route path="/:userId/places" exact>
-                    <UserPlacesPage/>
+                <Route path='/:userId/pets' exact>
+                    <UserPetPage/>
                 </Route>
-                <Route path="/auth">
+                <Route path='/auth'>
                     <AuthPage/>
                 </Route>
-                <Redirect to="/"/>
+                <Redirect to='/'/>
             </Switch>
         )
     }
@@ -85,10 +85,10 @@ function App() {
                 </StyledMain>
             </Container>
         </BrowserRouter>
-    );
+    )
 }
 
-export default App;
+export default App
 
 // Styles
 const StyledMain = styled.main`

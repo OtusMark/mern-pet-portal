@@ -1,7 +1,7 @@
-import React from "react";
-import {Avatar} from "../../../shared/components/uiElements/Avatar";
-import {Link} from "react-router-dom";
-import { Card } from "../../../shared/components/layout/Card";
+import React from 'react'
+import {Avatar} from '../../../shared/components/uiElements/Avatar'
+import {Link} from 'react-router-dom'
+import { Card } from '../../../shared/components/layout/Card'
 
 export const UserItem: React.FC<PropsT> = (props) => {
 
@@ -9,7 +9,7 @@ export const UserItem: React.FC<PropsT> = (props) => {
         id,
         name,
         image,
-        placeCount
+        petsCount
     } = props
 
     return (
@@ -17,11 +17,11 @@ export const UserItem: React.FC<PropsT> = (props) => {
             <Link to={`/${id}/places`}>
                 <Card>
                     <div>
-                        <Avatar src={image} alt=""/>
+                        <Avatar src={image} alt=''/>
                     </div>
                     <div>
                         <h2>{name}</h2>
-                        <h3>{placeCount === 1 ? 'Place: ' : 'Places: '} {placeCount}</h3>
+                        <h3>{petsCount === 1 ? 'Pet: ' : 'Pets: '} {petsCount}</h3>
                     </div>
                 </Card>
             </Link>
@@ -34,5 +34,5 @@ type PropsT = {
     id: string
     name: string
     image: string
-    placeCount: number
+    petsCount: number
 }

@@ -26,10 +26,10 @@ export const NavLinks: React.FC = () => {
                     <NavLink to="/" exact>All users</NavLink>
                 </StyledLi>
                 <StyledLi>
-                    <NavLink to={`/${loggedInUserId}/places`}>My places</NavLink>
+                    <NavLink to={`/${loggedInUserId}/pets`}>My pets</NavLink>
                 </StyledLi>
                 <StyledLi>
-                    <NavLink to="/places/new">Add place</NavLink>
+                    <NavLink to="/pets/new">Add a pet</NavLink>
                 </StyledLi>
                 <StyledLi>
                     <NavLink to="/auth">Authenticate</NavLink>

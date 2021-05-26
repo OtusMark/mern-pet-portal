@@ -1,15 +1,15 @@
 import {combineReducers} from "redux";
 import {configureStore} from "@reduxjs/toolkit";
-import {userReducer} from "./reducers/user-reducer";
-import {placeReducer} from "./reducers/place-reducer";
+import {usersReducer} from "./reducers/users-reducer";
+import {petReducer} from "./reducers/pet-reducer";
 import {authReducer} from "./reducers/auth-reducer";
 import {appReducer} from "./reducers/app-reducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
-    user: userReducer,
-    place: placeReducer,
+    users: usersReducer,
+    pet: petReducer,
 })
 
 let preloadedState = {
@@ -34,4 +34,3 @@ store.subscribe(() => {
 
 // Types
 export type AppRootStateT = ReturnType<typeof rootReducer>
-export type AppDispatchT = typeof store.dispatch

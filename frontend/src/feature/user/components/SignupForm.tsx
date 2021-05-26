@@ -49,8 +49,7 @@ export const SignupForm = () => {
             image: undefined
         },
         onSubmit: (values: SignupFormSubmitT, formikHelpers: FormikHelpers<any>) => {
-            console.log(values)
-
+            // !I! resolve any
             dispatch(signup(values))
             formikHelpers.resetForm()
         }
@@ -60,10 +59,11 @@ export const SignupForm = () => {
         <StyledCard>
             <StyledForm onSubmit={formik.handleSubmit}>
 
-                <ImagePreview imageFile={formik.values.image}/>
+                <ImagePreview imageFile={formik.values.image} width='200px'/>
                 <InputWrapper>
                     <ImageUpload id='image'
                                  name='image'
+                                 text='Choose your avatar'
                                  accept='.jpg,.png,.jpeg'
                                  error={formik.errors.image}
                                  onChange={(event: any) => {
@@ -104,16 +104,16 @@ const StyledCard = styled(Card)`
 `
 
 // Types
-type SignupFormErrorT = {
-    name?: string
-    email?: string
-    password?: string
-    image?: string
-}
-
 export type SignupFormSubmitT = {
     name: string,
     email: string,
     password: string
     image: File | undefined
+}
+
+type SignupFormErrorT = {
+    name?: string
+    email?: string
+    password?: string
+    image?: string
 }

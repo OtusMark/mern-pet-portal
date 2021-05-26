@@ -5,7 +5,9 @@ import avatarDefault from '../../../assets/image/avatarDefault.png'
 export const ImagePreview: React.FC<PropsT> = props => {
 
     const {
-        imageFile
+        imageFile,
+        width,
+        height
     } = props
 
     const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null | undefined>(avatarDefault)
@@ -23,18 +25,20 @@ export const ImagePreview: React.FC<PropsT> = props => {
     }, [imageFile])
 
     return (
-        <ImagePreviewMain>
+        <ImagePreviewMain width={width} height={width}>
             <img src={previewUrl as string} alt=''/>
         </ImagePreviewMain>
     )
 }
 
 // Styles
-const ImagePreviewMain = styled.div`
+const ImagePreviewMain = styled.div<{width?: string, height?: string}>`
   margin: 0 auto 2rem;
 
-  width: 200px;
-  height: 200px;
+  width: ${props => props.width ? props.width : '100%'};
+  height: ${props => props.width ? props.width : '200px'};
+  
+  border: 2px solid ${({theme}) => theme.color.primary.main};
 
   & img {
     width: 100%;
@@ -47,4 +51,6 @@ const ImagePreviewMain = styled.div`
 // Types
 type PropsT = {
     imageFile: File | undefined
+    width?: string
+    height?: string
 }

@@ -1,4 +1,4 @@
-# Mern places app
+# Pet portal app
 
 Don't forget
 ------------

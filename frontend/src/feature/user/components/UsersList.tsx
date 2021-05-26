@@ -1,6 +1,6 @@
 import React from "react";
 import {UserItem} from "./UserItem";
-import {UserT} from "../../../bll/reducers/user-reducer";
+import {UserT} from "../../../bll/reducers/users-reducer";
 import {Card} from "../../../shared/components/layout/Card";
 
 export const UsersList: React.FC<PropsT> = (props) => {
@@ -25,7 +25,7 @@ export const UsersList: React.FC<PropsT> = (props) => {
                               id={user.id}
                               name={user.name}
                               image={user.image}
-                              placeCount={user.places.length}/>
+                              petsCount={user.pets.length}/>
                 )
             })}
         </ul>

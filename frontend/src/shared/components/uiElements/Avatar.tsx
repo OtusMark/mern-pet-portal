@@ -1,6 +1,6 @@
-import styled, {StyledComponentProps} from "styled-components";
+import styled from 'styled-components/macro';
 
-const handleSize = (size: 'small' | 'big' | null) => {
+const handleSize = (size: 'small' | 'big' | undefined) => {
   switch (size) {
     case 'small': return '4rem'
     case 'big': return '14rem'
@@ -8,9 +8,12 @@ const handleSize = (size: 'small' | 'big' | null) => {
   }
 }
 
-export const Avatar = styled.img<StyledComponentProps<any, any, any, any>>`
+export const Avatar = styled.img<{size?: 'small' | 'big'}>`
   width: ${({size}) => handleSize(size)};
   height: ${({size}) => handleSize(size)};
+  
+  object-fit: cover;
+  
   border-radius: 100%;
   border: .2rem solid ${({theme}) => theme.color.primary.main};
 `

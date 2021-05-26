@@ -10,6 +10,7 @@ export const ImageUpload: React.FC<PropsT> = props => {
         type,
         id,
         error,
+        text,
         ...restProps
     } = props
 
@@ -18,7 +19,7 @@ export const ImageUpload: React.FC<PropsT> = props => {
     return (
         <ImageUploadMain>
             <StyledInput type='file' id={id} ref={filePickerRef} hidden {...restProps} />
-            <StyledLabel htmlFor={id}>Upload your avatar</StyledLabel>
+            <StyledLabel htmlFor={id}>{text}</StyledLabel>
             <StyledError>
                 {error && <span>{error}</span>}
             </StyledError>
@@ -80,5 +81,6 @@ const StyledError = styled.div`
 
 // Types
 type PropsT = DefaultInputT & {
+    text: string
     error?: string
 }

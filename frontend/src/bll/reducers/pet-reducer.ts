@@ -1,37 +1,36 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {setAppNoteError, setAppNoteSuccess, setAppStatus} from "./app-reducer";
-import {AddPlaceBodyT, placeAPI} from "../../api/places-api";
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {setAppNoteError, setAppNoteSuccess, setAppStatus} from './app-reducer'
+import {petAPI} from '../../api/pet-api'
+import {AddPetFormSubmitT} from '../../feature/pets/pages/AddPetPage'
 
 // Thunks
-export const getPlacesByUserId = createAsyncThunk('place/getPlacesByUserId', async (userId: string, thunkAPI) => {
+export const getPetsByUserId = createAsyncThunk('pet/get-pets-by-user-id', async (userId: string, thunkAPI) => {
 
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
-        const res = await placeAPI.getPlaceByUserId(userId)
+        const res = await petAPI.getPetByUserId(userId)
         if (res.status === 200) {
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
-            return res.data.places
+            return res.data.pets
         }
     } catch (err) {
         thunkAPI.dispatch(setAppStatus('failed'))
-        thunkAPI.dispatch(setAppNoteError(err.response.data.message))
         return thunkAPI.rejectWithValue([])
     }
 })
 
-export const addPlace = createAsyncThunk('place/addPlace', async (payload: AddPlacePayloadT, thunkAPI) => {
+export const addPet = createAsyncThunk('pet/add-pet', async (payload: AddPetFormSubmitT, thunkAPI) => {
 
-    const body: AddPlaceBodyT = {
-        title: payload.title,
-        description: payload.description,
-        address: payload.address,
-        creatorId: payload.creatorId
-    }
+    const formData = new FormData()
+    formData.append('name', payload.name)
+    formData.append('description', payload.description)
+    formData.append('image', payload.image as File)
+    formData.append('creatorId', payload.creatorId)
 
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
-        const res = await placeAPI.addPlace(payload.token, body)
+        const res = await petAPI.addPet(payload.token, formData)
         if (res.status === 201) {
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
@@ -44,16 +43,16 @@ export const addPlace = createAsyncThunk('place/addPlace', async (payload: AddPl
     }
 })
 
-export const deletePlace = createAsyncThunk('place/deletePlace', async (payload: DeletePlacePayloadT, thunkAPI) => {
+export const deletePet = createAsyncThunk('pet/delete-pet', async (payload: DeletePetPayloadT, thunkAPI) => {
 
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
-        const res = await placeAPI.deletePlace(payload.placeId, payload.token)
+        const res = await petAPI.deletePet(payload.petId, payload.token)
         if (res.status === 200) {
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
             thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
-            return payload.placeId
+            return payload.petId
         }
     } catch (err) {
         thunkAPI.dispatch(setAppStatus('failed'))
@@ -61,12 +60,12 @@ export const deletePlace = createAsyncThunk('place/deletePlace', async (payload:
     }
 })
 
-export const updatePlace = createAsyncThunk('place/updatePlace', async (payload: UpdatePlacePayloadT, thunkAPI) => {
+export const updatePet = createAsyncThunk('pet/update-pet', async (payload: UpdatePetPayloadT, thunkAPI) => {
 
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
-        const res = await placeAPI.updatePlace(payload.placeId, payload.token, {
-            title: payload.title,
+        const res = await petAPI.updatePet(payload.petId, payload.token, {
+            name: payload.name,
             description: payload.description
         })
         if (res.status === 200) {
@@ -82,30 +81,38 @@ export const updatePlace = createAsyncThunk('place/updatePlace', async (payload:
 
 })
 
-const initialState: Array<PlaceT> = []
+const initialState: Array<PetT> = []
 
 const slice = createSlice({
-    name: 'place',
+    name: 'pet',
     initialState: initialState,
     reducers: {},
     extraReducers: builder => {
         builder
-            .addCase(getPlacesByUserId.fulfilled, (state, action) => {
-                return action.payload
+            .addCase(getPetsByUserId.fulfilled, (state, action) => {
+                return action.payload.map((pet: PetT) => {
+                    return {
+                        id: pet.id,
+                        name: pet.name,
+                        description: pet.description,
+                        image: `http://localhost:5000/${pet.image}`,
+                        creatorId: pet.creatorId
+                    }
+                })
             })
-            .addCase(getPlacesByUserId.rejected, (state, action) => {
+            .addCase(getPetsByUserId.rejected, () => {
                 return []
             })
         builder
-            .addCase(addPlace.fulfilled, (state, action) => {
+            .addCase(addPet.fulfilled, (state, action) => {
                 state.push(action.payload)
             })
         builder
-            .addCase(deletePlace.fulfilled, (state, action) => {
+            .addCase(deletePet.fulfilled, (state, action) => {
                 return state.filter(place => place.id != action.payload)
             })
         builder
-            .addCase(updatePlace.fulfilled, (state, action) => {
+            .addCase(updatePet.fulfilled, (state, action) => {
 
                 return state.map(place => {
                         if (place.id === action.payload.placeId) {
@@ -117,38 +124,25 @@ const slice = createSlice({
     }
 })
 
-export const placeReducer = slice.reducer
+export const petReducer = slice.reducer
 
 // Types
-export type PlaceT = {
+export type PetT = {
     id: string
-    title: string
+    name: string
     description: string
-    address: string
     image: string
     creatorId: string
-    coordinates: {
-        lat: number
-        lng: number
-    }
 }
 
-export type AddPlacePayloadT = {
-    title: string
-    description: string
-    address: string
-    creatorId: string
+export type DeletePetPayloadT = {
+    petId: string,
     token: string
 }
 
-export type DeletePlacePayloadT = {
-    placeId: string,
-    token: string
-}
-
-export type UpdatePlacePayloadT = {
-    title: string
+export type UpdatePetPayloadT = {
+    name: string
     description: string,
-    placeId: string,
+    petId: string,
     token: string
 }

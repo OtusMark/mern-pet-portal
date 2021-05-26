@@ -1,15 +1,14 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {PlaceT} from "./place-reducer";
-import {setAppNoteError, setAppNoteSuccess, setAppStatus} from "./app-reducer";
-import {userAPI} from "../../api/user-api";
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {PetT} from './pet-reducer'
+import {setAppNoteError, setAppStatus} from './app-reducer'
+import {userAPI} from '../../api/user-api'
 
 // Thunks
-export const getUsers = createAsyncThunk('user/getUsers', async (param, thunkAPI) => {
+export const getUsers = createAsyncThunk('users/getUsers', async (param, thunkAPI) => {
 
     thunkAPI.dispatch(setAppStatus('loading'))
     try {
         const res = await userAPI.getUsers()
-        console.log(res)
         if (res.status === 200) {
             thunkAPI.dispatch(setAppStatus('succeeded'))
             return res.data.users
@@ -24,7 +23,7 @@ export const getUsers = createAsyncThunk('user/getUsers', async (param, thunkAPI
 const initialState: Array<UserT> = [] as Array<UserT>
 
 const slice = createSlice({
-    name: 'user',
+    name: 'users',
     initialState: initialState,
     reducers: {},
     extraReducers: builder => {
@@ -35,14 +34,14 @@ const slice = createSlice({
                         id: user.id,
                         name: user.name,
                         image: `http://localhost:5000/${user.image}`,
-                        places: user.places
+                        pets: user.pets
                     }
                 })
             })
     }
 })
 
-export const userReducer = slice.reducer
+export const usersReducer = slice.reducer
 
 // Types
 type ResponseUserT = {
@@ -50,14 +49,12 @@ type ResponseUserT = {
     id: string
     image: string
     name: string
-    places: Array<PlaceT>
-    __v: number
-    _id: string
+    pets: Array<PetT>
 }
 
 export type UserT = {
     id: string
     name: string
     image: string
-    places: Array<PlaceT>
+    pets: Array<PetT>
 }
