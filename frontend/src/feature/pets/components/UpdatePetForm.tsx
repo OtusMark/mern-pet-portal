@@ -1,12 +1,12 @@
 import {FormikHelpers, useFormik} from "formik";
-import {StyledForm} from "../../../shared/components/form/StyledForm";
-import {InputWrapper} from "../../../shared/components/form/InputWrapper";
-import {Input} from "../../../shared/components/form/Input";
+import {StyledForm} from "../../../common/styles/form/StyledForm";
+import {InputWrapper} from "../../../common/styles/form/InputWrapper";
+import {Input} from "../../../common/components/form/Input";
 import styled from "styled-components/macro";
-import {Card} from "../../../shared/components/layout/Card";
-import {Button} from "../../../shared/components/uiElements/Button";
-import {useDispatch} from "react-redux";
-import {getPetsByUserId, updatePet} from "../../../bll/reducers/pet-reducer";
+import {Card} from "../../../common/components/layout/Card";
+import {Button} from "../../../common/components/uiElements/Button";
+import {batch, useDispatch} from 'react-redux'
+import {getPetsByUserId, updatePet} from "../redux/pet-reducer";
 import React from "react";
 
 export const UpdatePetForm: React.FC<PropsT> = (props) => {
@@ -38,7 +38,7 @@ export const UpdatePetForm: React.FC<PropsT> = (props) => {
             name: '',
             description: '',
         },
-        onSubmit: async (values, formikHelpers: FormikHelpers<UpdatePetFormT>) => {
+        onSubmit: (values, formikHelpers: FormikHelpers<UpdatePetFormT>) => {
 
             const dispatchValues = {
                 ...values,
@@ -46,9 +46,11 @@ export const UpdatePetForm: React.FC<PropsT> = (props) => {
                 token
             }
 
-            await dispatch(updatePet(dispatchValues))
-            await dispatch(getPetsByUserId(userId))
-            await toggleModal()
+            batch(() => {
+                dispatch(updatePet(dispatchValues))
+                dispatch(getPetsByUserId(userId))
+            })
+            toggleModal()
             formikHelpers.resetForm()
         }
     })

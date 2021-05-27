@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {setAppNoteError, setAppNoteSuccess, setAppStatus} from './app-reducer'
-import {petAPI} from '../../api/pet-api'
-import {AddPetFormSubmitT} from '../../feature/pets/pages/AddPetPage'
+import {setAppNoteError, setAppNoteSuccess, setAppStatus} from '../../../app/redux/app-reducer'
+import {petAPI} from '../../../api/pet-api'
+import {AddPetFormSubmitT} from '../pages/AddPetPage'
 
 // Thunks
 export const getPetsByUserId = createAsyncThunk('pet/get-pets-by-user-id', async (userId: string, thunkAPI) => {
@@ -72,7 +72,7 @@ export const updatePet = createAsyncThunk('pet/update-pet', async (payload: Upda
 
             thunkAPI.dispatch(setAppStatus('succeeded'))
             thunkAPI.dispatch(setAppNoteSuccess(res.data.message))
-            return res.data.place
+            return res.data.pet
         }
     } catch (err) {
         thunkAPI.dispatch(setAppStatus('failed'))
@@ -114,10 +114,10 @@ const slice = createSlice({
         builder
             .addCase(updatePet.fulfilled, (state, action) => {
 
-                return state.map(place => {
-                        if (place.id === action.payload.placeId) {
+                return state.map(pet => {
+                        if (pet.id === action.payload.petId) {
                             return action.payload
-                        } else return place
+                        } else return pet
                     }
                 )
             })

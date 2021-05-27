@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
-import {deletePet, PetT} from '../../../bll/reducers/pet-reducer'
-import {Button} from '../../../shared/components/uiElements/Button'
-import {Card} from '../../../shared/components/layout/Card'
-import {Avatar} from '../../../shared/components/uiElements/Avatar'
-import {Modal} from '../../../shared/components/uiElements/Modal'
+import {deletePet, PetT} from '../redux/pet-reducer'
+import {Button} from '../../../common/components/uiElements/Button'
+import {Card} from '../../../common/components/layout/Card'
+import {Avatar} from '../../../common/components/uiElements/Avatar'
+import {Modal} from '../../../common/components/uiElements/Modal'
 import {useDispatch, useSelector} from 'react-redux'
 import {UpdatePetForm} from './UpdatePetForm'
-import {AppRootStateT} from '../../../bll/store'
+import {AppRootStateT} from '../../../app/redux/store'
 
 export const PetItem: React.FC<PropsT> = (props) => {
 

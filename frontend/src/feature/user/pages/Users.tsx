@@ -1,7 +1,7 @@
 import {UsersList} from "../components/UsersList";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateT} from "../../../bll/store";
-import {getUsers, UserT} from "../../../bll/reducers/users-reducer";
+import {AppRootStateT} from "../../../app/redux/store";
+import {getUsers, UserT} from "../redux/users-reducer";
 import {useEffect} from "react";
 
 export const Users = () => {

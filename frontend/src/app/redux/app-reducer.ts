@@ -1,5 +1,5 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {v4} from "uuid";
+import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {v4} from 'uuid'
 
 // Slice
 const initialState: StateT = {

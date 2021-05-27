@@ -1,12 +1,12 @@
 import {FormikHelpers, useFormik} from "formik";
-import {StyledForm} from "../../../shared/components/form/StyledForm";
-import {InputWrapper} from "../../../shared/components/form/InputWrapper";
-import {Input} from "../../../shared/components/form/Input";
+import {StyledForm} from "../../../common/styles/form/StyledForm";
+import {InputWrapper} from "../../../common/styles/form/InputWrapper";
+import {Input} from "../../../common/components/form/Input";
 import styled from "styled-components/macro";
-import {Card} from "../../../shared/components/layout/Card";
-import {Button} from "../../../shared/components/uiElements/Button";
+import {Card} from "../../../common/components/layout/Card";
+import {Button} from "../../../common/components/uiElements/Button";
 import {useDispatch} from "react-redux";
-import {login} from "../../../bll/reducers/auth-reducer";
+import {login} from "../redux/auth-reducer";
 
 export const LoginForm = () => {
 
@@ -28,7 +28,7 @@ export const LoginForm = () => {
             email: '',
             password: '',
         },
-        onSubmit: async (values, formikHelpers: FormikHelpers<LoginFormValueT>) => {
+        onSubmit: (values, formikHelpers: FormikHelpers<LoginFormValueT>) => {
 
             dispatch(login(values))
             formikHelpers.resetForm()

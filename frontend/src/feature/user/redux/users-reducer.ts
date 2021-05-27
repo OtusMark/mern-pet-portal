@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
-import {PetT} from './pet-reducer'
-import {setAppNoteError, setAppStatus} from './app-reducer'
-import {userAPI} from '../../api/user-api'
+import {PetT} from '../../pets/redux/pet-reducer'
+import {setAppNoteError, setAppStatus} from '../../../app/redux/app-reducer'
+import {userAPI} from '../../../api/user-api'
 
 // Thunks
 export const getUsers = createAsyncThunk('users/getUsers', async (param, thunkAPI) => {

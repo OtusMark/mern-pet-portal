@@ -2,7 +2,7 @@ import styled, {css, keyframes} from "styled-components/macro";
 import React, {useEffect, useState} from "react";
 import {StyledComponentProps} from "styled-components";
 import {useDispatch} from "react-redux";
-import { removeAppNote } from "../../../bll/reducers/app-reducer";
+import { removeAppNote } from "../../../app/redux/app-reducer";
 
 
 export const Notification: React.FC<PropsT> = props => {

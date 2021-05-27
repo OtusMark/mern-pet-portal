@@ -1,9 +1,9 @@
-import {combineReducers} from "redux";
-import {configureStore} from "@reduxjs/toolkit";
-import {usersReducer} from "./reducers/users-reducer";
-import {petReducer} from "./reducers/pet-reducer";
-import {authReducer} from "./reducers/auth-reducer";
-import {appReducer} from "./reducers/app-reducer";
+import {combineReducers} from 'redux'
+import {configureStore} from '@reduxjs/toolkit'
+import {usersReducer} from '../../feature/user/redux/users-reducer'
+import {petReducer} from '../../feature/pets/redux/pet-reducer'
+import {authReducer} from '../../feature/auth/redux/auth-reducer'
+import {appReducer} from './app-reducer'
 
 const rootReducer = combineReducers({
     app: appReducer,

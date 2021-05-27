@@ -1,17 +1,17 @@
 import {FormikHelpers, useFormik} from 'formik'
 import styled from 'styled-components/macro'
-import {Button} from '../../../shared/components/uiElements/Button'
-import {Input} from '../../../shared/components/form/Input'
-import {Card} from '../../../shared/components/layout/Card'
-import {InputWrapper} from '../../../shared/components/form/InputWrapper'
-import {StyledForm} from '../../../shared/components/form/StyledForm'
-import {addPet} from '../../../bll/reducers/pet-reducer'
+import {Button} from '../../../common/components/uiElements/Button'
+import {Input} from '../../../common/components/form/Input'
+import {Card} from '../../../common/components/layout/Card'
+import {InputWrapper} from '../../../common/styles/form/InputWrapper'
+import {StyledForm} from '../../../common/styles/form/StyledForm'
+import {addPet} from '../redux/pet-reducer'
 import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateT} from '../../../bll/store'
-import {Textarea} from '../../../shared/components/form/textarea'
-import {ImageUpload} from '../../../shared/components/form/ImageUpload'
-import React from 'react'
-import {ImagePreview} from '../../../shared/components/form/ImagePreview'
+import {AppRootStateT} from '../../../app/redux/store'
+import {Textarea} from '../../../common/components/form/Textarea'
+import {ImageUpload} from '../../../common/components/form/ImageUpload'
+import React, {ChangeEvent, useRef} from 'react'
+import {ImagePreview} from '../../../common/components/form/ImagePreview'
 
 export const AddPetPage = () => {
 
@@ -53,6 +53,7 @@ export const AddPetPage = () => {
                 creatorId,
                 token
             }
+            console.log(values)
 
             dispatch(addPet(dispatchValues))
             formikHelpers.resetForm()
@@ -70,7 +71,9 @@ export const AddPetPage = () => {
                                      text='Add pet image'
                                      accept='.jpg,.png,.jpeg'
                                      error={formik.errors.image}
-                                     onChange={(event: any) => {
+                                     formImage={formik.values.image}
+                                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                         // @ts-ignore !I! Find a solution to object is possibly null
                                          formik.setFieldValue('image', event.currentTarget.files[0])
                                      }}/>
                     </InputWrapper>
@@ -83,7 +86,8 @@ export const AddPetPage = () => {
                     </InputWrapper>
 
                     <InputWrapper>
-                        <Textarea placeholder="Pet description"
+                        <Textarea placeholder='Pet description'
+                                  rows={4}
                                   error={formik.errors.description}
                                   {...formik.getFieldProps('description')}/>
                     </InputWrapper>

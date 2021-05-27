@@ -1,6 +1,6 @@
 import styled, {StyledComponentProps} from "styled-components/macro";
 import React from "react";
-import {ThemeT} from "../../../styles/theme";
+import {ThemeT} from "../../../app/styles/theme";
 
 type DefaultDivType = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 

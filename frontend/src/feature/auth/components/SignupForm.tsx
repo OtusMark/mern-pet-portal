@@ -1,15 +1,15 @@
 import {FormikHelpers, useFormik} from 'formik'
-import {StyledForm} from '../../../shared/components/form/StyledForm'
-import {InputWrapper} from '../../../shared/components/form/InputWrapper'
-import {Input} from '../../../shared/components/form/Input'
+import {StyledForm} from '../../../common/styles/form/StyledForm'
+import {InputWrapper} from '../../../common/styles/form/InputWrapper'
+import {Input} from '../../../common/components/form/Input'
 import styled from 'styled-components/macro'
-import {Card} from '../../../shared/components/layout/Card'
-import {Button} from '../../../shared/components/uiElements/Button'
+import {Card} from '../../../common/components/layout/Card'
+import {Button} from '../../../common/components/uiElements/Button'
 import {useDispatch} from 'react-redux'
-import {ImageUpload} from '../../../shared/components/form/ImageUpload'
+import {ImageUpload} from '../../../common/components/form/ImageUpload'
 import React from 'react'
-import {ImagePreview} from '../../../shared/components/form/ImagePreview'
-import {signup} from '../../../bll/reducers/auth-reducer'
+import {ImagePreview} from '../../../common/components/form/ImagePreview'
+import {signup} from '../redux/auth-reducer'
 
 export const SignupForm = () => {
 
@@ -66,6 +66,7 @@ export const SignupForm = () => {
                                  text='Choose your avatar'
                                  accept='.jpg,.png,.jpeg'
                                  error={formik.errors.image}
+                                 formImage={formik.values.image}
                                  onChange={(event: any) => {
                                      formik.setFieldValue('image', event.currentTarget.files[0])
                                  }}/>

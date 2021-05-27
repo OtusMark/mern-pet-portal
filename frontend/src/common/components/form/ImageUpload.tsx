@@ -1,6 +1,5 @@
-import React, {DetailedHTMLProps, InputHTMLAttributes, useEffect, useRef, useState} from "react";
-import styled from "styled-components/macro";
-import {StyledComponentProps} from "styled-components";
+import React, {DetailedHTMLProps, InputHTMLAttributes, useEffect, useRef} from 'react'
+import styled from 'styled-components/macro'
 
 type DefaultInputT = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
@@ -11,10 +10,18 @@ export const ImageUpload: React.FC<PropsT> = props => {
         id,
         error,
         text,
+        formImage, // The value of the image from form data must be passed here. if the image is empty undefined the image upload will be cleared.
         ...restProps
     } = props
 
-    const filePickerRef = useRef()
+    const filePickerRef = useRef<any>(null) // !I! HTMLInput element is not working here...
+
+    useEffect(() => {
+        if (formImage === undefined) {
+            filePickerRef.current.value = ''
+        }
+    })
+
 
     return (
         <ImageUploadMain>
@@ -33,11 +40,12 @@ const ImageUploadMain = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+
   margin-bottom: 2rem;
 `
 
-const StyledInput = styled.input<StyledComponentProps<any, any, any, any>>`
+// !I! Replace any
+const StyledInput = styled.input<{ ref: any }>`
   height: 20px;
 `
 
@@ -51,7 +59,7 @@ const StyledLabel = styled.label`
 
   box-shadow: ${({theme}) => theme.shadow['1']};
 
-  font-family: ${({theme}) => theme.font.family.default}; 
+  font-family: ${({theme}) => theme.font.family.default};
   font-size: ${({theme}) => theme.font.size.default};
 
   transition: all .1s ease-in-out;
@@ -83,4 +91,5 @@ const StyledError = styled.div`
 type PropsT = DefaultInputT & {
     text: string
     error?: string
+    formImage: any
 }

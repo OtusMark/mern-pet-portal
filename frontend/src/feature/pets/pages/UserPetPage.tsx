@@ -1,10 +1,10 @@
 import React, {useEffect} from "react"
-import {getPetsByUserId, PetT} from "../../../bll/reducers/pet-reducer";
+import {getPetsByUserId, PetT} from "../redux/pet-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateT} from "../../../bll/store";
+import {AppRootStateT} from "../../../app/redux/store";
 import {PetList} from "../components/PetList";
 import {useParams} from "react-router-dom";
-import {ParamsT} from "../../../App";
+import {ParamsT} from "../../../app/App";
 
 export const UserPetPage = () => {
 

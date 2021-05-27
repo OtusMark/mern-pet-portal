@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {LoginBodyT, userAPI} from "../../api/user-api";
-import {setAppNoteError, setAppNoteSuccess, setAppStatus} from "./app-reducer";
-import {SignupFormSubmitT} from "../../feature/user/components/SignupForm";
+import {LoginBodyT, userAPI} from "../../../api/user-api";
+import {setAppNoteError, setAppNoteSuccess, setAppStatus} from "../../../app/redux/app-reducer";
+import {SignupFormSubmitT} from "../components/SignupForm";
 
 // Thunks
 export const signup = createAsyncThunk('auth/signup', async (body: SignupFormSubmitT, thunkAPI) => {

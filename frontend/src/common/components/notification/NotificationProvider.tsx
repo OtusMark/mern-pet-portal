@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import {Notification} from "./Notification";
-import {NotificationT} from "../../../bll/reducers/app-reducer";
+import {NotificationT} from "../../../app/redux/app-reducer";
 
 export const NotificationProvider: React.FC<PropsT> = props => {
 

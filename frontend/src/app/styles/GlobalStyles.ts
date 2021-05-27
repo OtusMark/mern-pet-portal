@@ -1,5 +1,5 @@
-import {createGlobalStyle} from "styled-components/macro";
-import {ThemeT} from "./theme";
+import {createGlobalStyle} from 'styled-components/macro'
+import {ThemeT} from './theme'
 
 export const GlobalStyles = createGlobalStyle`
   // Import the main style from theme
@@ -10,7 +10,7 @@ export const GlobalStyles = createGlobalStyle`
   *:after {
     box-sizing: border-box;
     // Removes the default mobile highlight when holding down the finger on the component
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     margin: 0;
     padding: 0;
@@ -23,7 +23,7 @@ export const GlobalStyles = createGlobalStyle`
 
   html {
     overflow-x: hidden;
-    
+
     //scroll-behavior: smooth;
 
     // Default global font style
@@ -59,13 +59,13 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     padding: 0;
   }
-  
+
   h1 {
     font-family: ${({theme}) => theme.font.family.montserrat};
     font-size: ${({theme}) => theme.font.size.b5};
     font-weight: 700;
   }
-  
+
   h2 {
     font-size: ${({theme}) => theme.font.size.b2};
     font-weight: 300;
@@ -79,7 +79,7 @@ export const GlobalStyles = createGlobalStyle`
   textarea {
     resize: none;
   }
-  
+
   ul {
     list-style: none;
   }

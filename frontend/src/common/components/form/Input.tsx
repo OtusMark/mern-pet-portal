@@ -1,10 +1,11 @@
-import React, {ChangeEvent, DetailedHTMLProps, KeyboardEvent, TextareaHTMLAttributes} from 'react'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from 'react'
 import styled from 'styled-components/macro'
-import {TextInputMixin} from '../../../styles/Mixins'
+import {TextInputMixin} from '../../../app/styles/Mixins'
 
-export const Textarea: React.FC<TextAreaPropsT> = (props) => {
+export const Input: React.FC<InputTextPropsT> = (props) => {
 
     const {
+        type, // ignore. To prevent assigment of other types
         onChange,
         onChangeText,
         onKeyPress,
@@ -13,14 +14,14 @@ export const Textarea: React.FC<TextAreaPropsT> = (props) => {
         ...restProps
     } = props
 
-    const onChangeCallback = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         onChange
         && onChange(e)
 
         onChangeText && onChangeText(e.currentTarget.value)
     }
 
-    const onKeyPressCallback = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    const onKeyPressCallback = (e: KeyboardEvent<HTMLInputElement>) => {
         onKeyPress && onKeyPress(e)
 
         e.key === 'Enter'
@@ -30,7 +31,7 @@ export const Textarea: React.FC<TextAreaPropsT> = (props) => {
 
     return (
         <ComponentWrapper>
-            <StyledTextarea
+            <StyledInput
                 type='text'
                 onChange={onChangeCallback}
                 onKeyPress={onKeyPressCallback}
@@ -50,14 +51,14 @@ const ComponentWrapper = styled.div`
   width: 100%;
 `
 
-const StyledTextarea = styled.textarea<any>` // Styled-Component cannot infer types for ...restProps. Only any can be used
-  
+const StyledInput = styled.input<any>` // Styled-Component cannot infer types for ...restProps. Only any can be used
+
   ${({theme}) => TextInputMixin({
     fontSize: theme.font.size.default,
     fontFamily: theme.font.family.default
   })}
 
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.5rem;
 `
 
 const StyledError = styled.div`
@@ -71,9 +72,9 @@ const StyledError = styled.div`
 `
 
 // Types
-type DefaultTextareaPropsT = DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>
+type DefaultInputPropsT = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
-type TextAreaPropsT = DefaultTextareaPropsT & {
+type InputTextPropsT = DefaultInputPropsT & {
     onChangeText?: (value: string) => void
     onEnter?: () => void
     error?: string

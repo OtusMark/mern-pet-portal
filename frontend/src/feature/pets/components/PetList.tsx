@@ -1,7 +1,7 @@
 import React from "react";
-import {PetT} from "../../../bll/reducers/pet-reducer";
-import {Card} from "../../../shared/components/layout/Card";
-import {Button} from "../../../shared/components/uiElements/Button";
+import {PetT} from "../redux/pet-reducer";
+import {Card} from "../../../common/components/layout/Card";
+import {Button} from "../../../common/components/uiElements/Button";
 import {PetItem} from "./PetItem";
 
 export const PetList: React.FC<PropsT> = (props) => {

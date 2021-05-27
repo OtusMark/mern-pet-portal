@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import styled from "styled-components/macro";
+import React, {useEffect, useState} from 'react'
+import styled from 'styled-components/macro'
 import avatarDefault from '../../../assets/image/avatarDefault.png'
 
 export const ImagePreview: React.FC<PropsT> = props => {
@@ -25,19 +25,19 @@ export const ImagePreview: React.FC<PropsT> = props => {
     }, [imageFile])
 
     return (
-        <ImagePreviewMain width={width} height={width}>
+        <ImagePreviewMain width={width} height={height}>
             <img src={previewUrl as string} alt=''/>
         </ImagePreviewMain>
     )
 }
 
 // Styles
-const ImagePreviewMain = styled.div<{width?: string, height?: string}>`
+const ImagePreviewMain = styled.div<{ width?: string, height?: string }>`
   margin: 0 auto 2rem;
 
   width: ${props => props.width ? props.width : '100%'};
-  height: ${props => props.width ? props.width : '200px'};
-  
+  height: ${props => props.height ? props.height : '200px'};
+
   border: 2px solid ${({theme}) => theme.color.primary.main};
 
   & img {
