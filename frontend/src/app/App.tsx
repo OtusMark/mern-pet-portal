@@ -5,14 +5,14 @@ import {AddPetPage} from '../feature/pets/pages/AddPetPage'
 import {MainNavigation} from '../common/components/navigation/MainNavigation'
 import {UserPetPage} from '../feature/pets/pages/UserPetPage'
 import {AuthPage} from '../feature/auth/pages/AuthPage'
-import {Container} from '../common/components/layout/Container'
+import {Container} from '../common/styles/layout/Container'
 import styled from 'styled-components/macro'
 import {Loader} from '../common/components/uiElements/Loader'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateT} from './redux/store'
 import {AppStatusT, NotificationT} from './redux/app-reducer'
 import {NotificationProvider} from '../common/components/notification/NotificationProvider'
-import {logout} from '../feature/auth/redux/auth-reducer'
+import {authLogout} from '../feature/auth/redux/auth-reducer'
 
 function App() {
 
@@ -29,11 +29,7 @@ function App() {
     useEffect(() => {
         if (token && tokenExpiration) {
             const remainingTime = Date.parse(tokenExpiration) - new Date().getTime()
-            logoutTimer = setTimeout(() => dispatch(logout()), remainingTime)
-
-            // For checking!
-            console.log(logoutTimer)
-            console.log(remainingTime)
+            logoutTimer = setTimeout(() => dispatch(authLogout()), remainingTime)
         } else {
             clearTimeout(logoutTimer)
         }

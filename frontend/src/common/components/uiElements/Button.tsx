@@ -1,6 +1,6 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps} from "react";
-import { Link } from "react-router-dom";
-import styled, {StyledComponentProps} from "styled-components/macro";
+import React, {ButtonHTMLAttributes, DetailedHTMLProps} from 'react'
+import {Link} from 'react-router-dom'
+import styled from 'styled-components/macro'
 
 export const Button: React.FC<PropsT> = (props) => {
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {deletePet, PetT} from '../redux/pet-reducer'
 import {Button} from '../../../common/components/uiElements/Button'
-import {Card} from '../../../common/components/layout/Card'
+import {Card} from '../../../common/styles/layout/Card'
 import {Avatar} from '../../../common/components/uiElements/Avatar'
 import {Modal} from '../../../common/components/uiElements/Modal'
 import {useDispatch, useSelector} from 'react-redux'

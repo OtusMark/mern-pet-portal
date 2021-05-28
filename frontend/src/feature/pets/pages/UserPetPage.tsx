@@ -10,7 +10,7 @@ export const UserPetPage = () => {
 
     const userId = useParams<ParamsT>().userId
 
-    const UserPets = useSelector<AppRootStateT, Array<PetT>>(state => state.pet)
+    // const UserPets = useSelector<AppRootStateT, Array<PetT>>(state => state.pet)
 
     const dispatch = useDispatch()
 
@@ -19,6 +19,7 @@ export const UserPetPage = () => {
     }, [])
 
     return (
-        <PetList pets={UserPets}/>
+        <div>Pets</div>
+        // <PetList pets={UserPets}/>
     )
 }

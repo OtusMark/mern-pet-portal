@@ -1,4 +1,4 @@
-import React, {DetailedHTMLProps, InputHTMLAttributes, useEffect, useRef} from 'react'
+import React, {DetailedHTMLProps, InputHTMLAttributes, useLayoutEffect, useRef} from 'react'
 import styled from 'styled-components/macro'
 
 type DefaultInputT = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
@@ -14,10 +14,10 @@ export const ImageUpload: React.FC<PropsT> = props => {
         ...restProps
     } = props
 
-    const filePickerRef = useRef<any>(null) // !I! HTMLInput element is not working here...
+    const filePickerRef = useRef<HTMLInputElement>(null)
 
-    useEffect(() => {
-        if (formImage === undefined) {
+    useLayoutEffect(() => {
+        if (formImage === undefined && filePickerRef.current) {
             filePickerRef.current.value = ''
         }
     })
@@ -91,5 +91,5 @@ const StyledError = styled.div`
 type PropsT = DefaultInputT & {
     text: string
     error?: string
-    formImage: any
+    formImage: File | undefined
 }

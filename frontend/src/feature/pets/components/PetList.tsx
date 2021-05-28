@@ -1,6 +1,6 @@
 import React from "react";
 import {PetT} from "../redux/pet-reducer";
-import {Card} from "../../../common/components/layout/Card";
+import {Card} from "../../../common/styles/layout/Card";
 import {Button} from "../../../common/components/uiElements/Button";
 import {PetItem} from "./PetItem";
 

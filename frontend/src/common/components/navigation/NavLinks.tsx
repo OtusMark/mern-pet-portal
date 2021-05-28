@@ -1,10 +1,10 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import styled from "styled-components/macro";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateT} from "../../../app/redux/store";
-import {Button} from "../uiElements/Button";
-import { logout } from '../../../feature/auth/redux/auth-reducer';
+import styled from 'styled-components/macro'
+import {useDispatch, useSelector} from 'react-redux'
+import {AppRootStateT} from '../../../app/redux/store'
+import {Button} from '../uiElements/Button'
+import {authLogout} from '../../../feature/auth/redux/auth-reducer'
 
 export const NavLinks: React.FC = () => {
 
@@ -16,7 +16,7 @@ export const NavLinks: React.FC = () => {
     let navLinks
 
     const userLogout = () => {
-        dispatch(logout())
+        dispatch(authLogout())
     }
 
     if (token) {

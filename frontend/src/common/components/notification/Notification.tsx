@@ -1,8 +1,8 @@
-import styled, {css, keyframes} from "styled-components/macro";
-import React, {useEffect, useState} from "react";
-import {StyledComponentProps} from "styled-components";
-import {useDispatch} from "react-redux";
-import { removeAppNote } from "../../../app/redux/app-reducer";
+import styled, {css, keyframes} from 'styled-components/macro'
+import React, {useEffect, useState} from 'react'
+import {StyledComponentProps} from 'styled-components'
+import {useDispatch} from 'react-redux'
+import {appSetRemoveNote} from '../../../app/redux/app-reducer'
 
 
 export const Notification: React.FC<PropsT> = props => {
@@ -44,7 +44,7 @@ export const Notification: React.FC<PropsT> = props => {
         handlePauseTimer()
         setClose(true)
         setTimeout(() => {
-            dispatch(removeAppNote(id))
+            dispatch(appSetRemoveNote(id))
         }, 400)
     }
 
@@ -93,12 +93,12 @@ const Bar = styled.div<StyledComponentProps<any, any, any, any>>`
 const NotificationItem = styled.div<StyledComponentProps<any, any, any, any>>`
 
   overflow: hidden;
-  
+
   margin-bottom: 1rem;
 
   width: 300px;
 
-  box-shadow: ${({theme}) => theme.shadow["1"]};
+  box-shadow: ${({theme}) => theme.shadow['1']};
   border-radius: 10px;
 
   background-color: ${({theme}) => theme.color.white};

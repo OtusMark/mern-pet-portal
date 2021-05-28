@@ -1,7 +1,7 @@
 import React from "react";
 import {UserItem} from "./UserItem";
 import {UserT} from "../redux/users-reducer";
-import {Card} from "../../../common/components/layout/Card";
+import {Card} from "../../../common/styles/layout/Card";
 
 export const UsersList: React.FC<PropsT> = (props) => {
 

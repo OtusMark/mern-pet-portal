@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {PetT} from '../feature/pets/redux/pet-reducer'
 
 // Instance
 const instance = axios.create({
@@ -19,8 +20,12 @@ export const userAPI = {
 }
 
 // Types
-
 export type LoginBodyT = {
     email: string,
     password: string
+}
+
+export type LoginResponseDataT = {
+    userId: string
+    token: string
 }

@@ -58,12 +58,15 @@ const createPet = async (req, res, next) => {
         )
     }
 
-    const {name, description, creatorId} = req.body
+    const {name, breed, dob, gender, description, creatorId} = req.body
 
     const createdPet = new Pet({
         name,
+        breed,
+        dob,
+        gender,
         description,
-        image: req.file.path.split('\\').join('/'),
+        image: req.file.path.split('\\').join('/'), // !I! Check if the split/join is necessary. Windows file system uploads with \
         creatorId
     })
 

@@ -17,9 +17,7 @@ router.post(
     '/',
     fileUpload.single('image'),
     [
-        check('name')
-            .not()
-            .isEmpty(),
+        check('name').not().isEmpty(),
         check('description').isLength({min: 5}),
     ],
     petsControllers.createPet
@@ -28,9 +26,7 @@ router.post(
 router.patch(
     '/:petId',
     [
-        check('name')
-            .not()
-            .isEmpty(),
+        check('name').not().isEmpty(),
         check('description').isLength({min: 5})
     ],
     petsControllers.updatePet
