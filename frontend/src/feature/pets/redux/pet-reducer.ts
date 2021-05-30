@@ -1,4 +1,3 @@
-import {createAsyncThunk} from '@reduxjs/toolkit'
 import {appSetNoteError, appSetNoteSuccess, appSetStatus} from '../../../app/redux/app-reducer'
 import {petAPI} from '../../../api/pet-api'
 import {AddPetFormSubmitT} from '../pages/AddPetPage'
@@ -14,11 +13,10 @@ export const getPetsByUserId = (userId: string) => {
             if (res.status === 200) {
 
                 dispatch(appSetStatus('succeeded'))
-                // return res.data.pets
+                dispatch(setPetsList(res.data.pets))
             }
         } catch (err) {
             dispatch(appSetStatus('failed'))
-            // return rejectWithValue([])
         }
     }
 }
@@ -28,7 +26,11 @@ export const addPet = (payload: AddPetFormSubmitT) => {
     return async (dispatch: Dispatch<any>) => {
         const formData = new FormData()
         formData.append('name', payload.name)
+        formData.append('breed', payload.breed)
+        formData.append('dob', payload.dob)
+        formData.append('gender', payload.gender)
         formData.append('description', payload.description)
+        formData.append('lookingForBreading', JSON.stringify(payload.lookingForBreading))
         formData.append('image', payload.image as File)
         formData.append('creatorId', payload.creatorId)
 
@@ -39,7 +41,7 @@ export const addPet = (payload: AddPetFormSubmitT) => {
 
                 dispatch(appSetStatus('succeeded'))
                 dispatch(appSetNoteSuccess(res.data.message))
-                // return res.data.pet
+                dispatch(addPetToPetList(res.data.pet))
             }
         } catch (err) {
             dispatch(appSetStatus('failed'))
@@ -58,7 +60,7 @@ export const deletePet = (payload: DeletePetPayloadT) => {
 
                 dispatch(appSetStatus('succeeded'))
                 dispatch(appSetNoteSuccess(res.data.message))
-                // return payload.petId
+                dispatch(deletePetFromPetList(payload.petId))
             }
         } catch (err) {
             dispatch(appSetStatus('failed'))
@@ -80,7 +82,7 @@ export const updatePet = (payload: UpdatePetPayloadT) => {
 
                 dispatch(appSetStatus('succeeded'))
                 dispatch(appSetNoteSuccess(res.data.message))
-                // return res.data.pet
+                dispatch(updatePetById(res.data.pet))
             }
         } catch (err) {
             dispatch(appSetStatus('failed'))
@@ -91,15 +93,49 @@ export const updatePet = (payload: UpdatePetPayloadT) => {
 
 const initialState: Array<PetT> = []
 
-export const petReducer = (state = initialState, action: any) => {
-    switch (action.payload) {
-        case 'pet/SET_PET': {
-
+export const petReducer = (state = initialState, action: actionT): StateT => {
+    switch (action.type) {
+        case 'pet/SET_PETS_LIST': {
+            return action.payload.map((pet: PetT) => {
+                    return {
+                        id: pet.id,
+                        name: pet.name,
+                        description: pet.description,
+                        image: `http://localhost:5000/${pet.image}`,
+                        creatorId: pet.creatorId
+                    }
+                })
+        }
+        case 'pet/ADD_PET_TO_PET_LIST': {
+            return [...state, action.payload]
+        }
+        case 'pet/UPDATE_PET_BY_ID': {
+            return state.filter(pet => pet.id != action.payload)
+        }
+        case 'pet/DELETE_PET_FROM_PET_LIST': {
+            return state.filter(pet => pet.id != action.payload)
+        }
+        default: {
+            return state
         }
     }
 }
 
+// Action creators
+export const setPetsList = (petsList: Array<PetT>) => ({type: 'pet/SET_PETS_LIST', payload: petsList} as const)
+export const addPetToPetList = (pet: PetT) => ({type: 'pet/ADD_PET_TO_PET_LIST', payload: pet} as const)
+export const updatePetById = (petId: string) => ({type: 'pet/UPDATE_PET_BY_ID', payload: petId} as const)
+export const deletePetFromPetList = (petId: string) => ({type: 'pet/DELETE_PET_FROM_PET_LIST', payload: petId} as const)
+
+
 // Types
+export type StateT = typeof initialState
+
+export type actionT = ReturnType<typeof setPetsList |
+    typeof addPetToPetList |
+    typeof updatePetById |
+    typeof deletePetFromPetList>
+
 export type PetT = {
     id: string
     name: string

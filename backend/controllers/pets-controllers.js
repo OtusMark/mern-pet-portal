@@ -58,24 +58,28 @@ const createPet = async (req, res, next) => {
         )
     }
 
-    const {name, breed, dob, gender, description, creatorId} = req.body
+    const {name, breed, dob, gender, lookingForBreading, description, creatorId} = req.body
 
     const createdPet = new Pet({
         name,
         breed,
         dob,
         gender,
+        lookingForBreading,
         description,
         image: req.file.path.split('\\').join('/'), // !I! Check if the split/join is necessary. Windows file system uploads with \
         creatorId
     })
 
+    console.log('Created pet' + createdPet)
+
     let user
     try {
         user = await User.findById(creatorId)
+        console.log('Pet user' + user)
     } catch {
         return next(
-            new HttpError('Creating pet failed, please try again', 500)
+            new HttpError('Creating pet failed, please try again.', 500)
         )
     }
 
@@ -94,7 +98,7 @@ const createPet = async (req, res, next) => {
         await session.commitTransaction()
     } catch (err) {
         return next(
-            new HttpError('Creating pet failed, please try again.', 500)
+            new HttpError('Creating pet failed, please try again. , step 2', 500)
         )
     }
 

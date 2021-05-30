@@ -2,7 +2,7 @@ import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEven
 import styled from 'styled-components/macro'
 import {TextInputMixin} from '../../../app/styles/Mixins'
 
-export const Input: React.FC<InputTextPropsT> = (props) => {
+export const InputText: React.FC<InputTextPropsT> = (props) => {
 
     const {
         type, // ignore. To prevent assigment of other types

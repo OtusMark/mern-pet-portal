@@ -1,7 +1,7 @@
 import {FormikHelpers, useFormik} from 'formik'
 import {StyledForm} from '../../../common/styles/form/StyledForm'
 import {InputWrapper} from '../../../common/styles/form/InputWrapper'
-import {Input} from '../../../common/components/form/Input'
+import {InputText} from '../../../common/components/form/InputText'
 import styled from 'styled-components/macro'
 import {Card} from '../../../common/styles/layout/Card'
 import {Button} from '../../../common/components/uiElements/Button'
@@ -73,24 +73,24 @@ export const SignupForm = () => {
                 </InputWrapper>
 
                 <InputWrapper>
-                    <Input placeholder='Name'
-                           type='text'
-                           error={formik.errors.name}
-                           {...formik.getFieldProps('name')}/>
+                    <InputText placeholder='Name'
+                               type='text'
+                               error={formik.errors.name}
+                               {...formik.getFieldProps('name')}/>
                 </InputWrapper>
 
                 <InputWrapper>
-                    <Input placeholder='Email'
-                           type='text'
-                           error={formik.errors.email}
-                           {...formik.getFieldProps('email')}/>
+                    <InputText placeholder='Email'
+                               type='text'
+                               error={formik.errors.email}
+                               {...formik.getFieldProps('email')}/>
                 </InputWrapper>
 
                 <InputWrapper>
-                    <Input placeholder='Password'
-                           type='text'
-                           error={formik.errors.password}
-                           {...formik.getFieldProps('password')}/>
+                    <InputText placeholder='Password'
+                               type='text'
+                               error={formik.errors.password}
+                               {...formik.getFieldProps('password')}/>
                 </InputWrapper>
 
                 <Button type='submit'>Sign up</Button>

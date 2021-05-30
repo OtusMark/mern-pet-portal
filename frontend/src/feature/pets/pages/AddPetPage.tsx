@@ -1,7 +1,7 @@
-import {FormikHelpers, useFormik} from 'formik'
+import {FormikErrors, FormikHelpers, useFormik} from 'formik'
 import styled from 'styled-components/macro'
 import {Button} from '../../../common/components/uiElements/Button'
-import {Input} from '../../../common/components/form/Input'
+import {InputText} from '../../../common/components/form/InputText'
 import {Card} from '../../../common/styles/layout/Card'
 import {InputWrapper} from '../../../common/styles/form/InputWrapper'
 import {StyledForm} from '../../../common/styles/form/StyledForm'
@@ -10,14 +10,19 @@ import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateT} from '../../../app/redux/store'
 import {Textarea} from '../../../common/components/form/Textarea'
 import {ImageUpload} from '../../../common/components/form/ImageUpload'
-import React, {ChangeEvent, useRef} from 'react'
+import React, {ChangeEvent} from 'react'
 import {ImagePreview} from '../../../common/components/form/ImagePreview'
+import {Checkbox} from '../../../common/components/form/Checkbox'
+import {RadioButtons} from '../../../common/components/form/RadioButtons'
 
 export const AddPetPage = () => {
 
+    const dispatch = useDispatch()
+
     const creatorId = useSelector<AppRootStateT, string>(state => state.auth.loggedInUserId as string)
     const token = useSelector<AppRootStateT, string>(state => state.auth.token as string)
-    const dispatch = useDispatch()
+
+    const genderOptions = ['Male', 'Female']
 
     const formik = useFormik({
 
@@ -26,6 +31,9 @@ export const AddPetPage = () => {
             const AllowedImageTypes = ['image/gif', 'image/jpeg', 'image/png']
             if (!values.name) {
                 errors.name = 'Name is required'
+            }
+            if (!values.breed) {
+                errors.breed = 'Breed is required'
             }
             if (!values.description) {
                 errors.description = 'Description is required'
@@ -43,7 +51,11 @@ export const AddPetPage = () => {
         },
         initialValues: {
             name: '',
+            breed: '',
+            dob: new Date().toISOString().slice(0, 10),
+            gender: genderOptions[0],
             description: '',
+            lookingForBreading: false,
             image: undefined
         },
         onSubmit: (values: AddPetFormValueT, formikHelpers: FormikHelpers<any>) => {
@@ -57,6 +69,7 @@ export const AddPetPage = () => {
 
             dispatch(addPet(dispatchValues))
             formikHelpers.resetForm()
+            // !I! No reset for lookingForBreading
         }
     })
 
@@ -79,17 +92,45 @@ export const AddPetPage = () => {
                     </InputWrapper>
 
                     <InputWrapper>
-                        <Input placeholder='Pet name'
-                               type='text'
-                               error={formik.errors.name}
-                               {...formik.getFieldProps('name')}/>
+                        <InputText placeholder='Name'
+                                   type='text'
+                                   error={formik.errors.name}
+                                   {...formik.getFieldProps('name')}/>
                     </InputWrapper>
 
                     <InputWrapper>
-                        <Textarea placeholder='Pet description'
+                        <InputText placeholder='Breed'
+                                   type='text'
+                                   error={formik.errors.breed}
+                                   {...formik.getFieldProps('breed')}/>
+                    </InputWrapper>
+
+                    <InputWrapper>
+                        <input placeholder='Date of birth'
+                               type='date'
+                               {...formik.getFieldProps('dob')}/>
+                    </InputWrapper>
+
+                    <InputWrapper>
+                        <RadioButtons placeholder='Gender'
+                                      options={genderOptions}
+                                      {...formik.getFieldProps('gender')}
+                                      onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                                          formik.setFieldValue('gender', event.currentTarget.value)
+                                      }}/>
+                    </InputWrapper>
+
+                    <InputWrapper>
+                        <Textarea placeholder='Description'
                                   rows={4}
                                   error={formik.errors.description}
                                   {...formik.getFieldProps('description')}/>
+                    </InputWrapper>
+
+                    <InputWrapper>
+                        <Checkbox {...formik.getFieldProps('lookingForBreading')}>
+                            Looking for breading
+                        </Checkbox>
                     </InputWrapper>
 
                     <Button type='submit'>Add pet</Button>
@@ -116,20 +157,23 @@ const StyledCard = styled(Card)`
 // Types
 export type AddPetFormValueT = {
     name: string
+    breed: string
+    dob: string
+    gender: string
     description: string
+    lookingForBreading: boolean
     image: File | undefined
 }
 
-export type AddPetFormSubmitT = {
-    name: string
-    description: string
-    image: File | undefined
+export type AddPetFormSubmitT = AddPetFormValueT & {
     creatorId: string
     token: string
 }
 
 type AddPetFormErrorT = {
     name?: string
+    breed?: string
+    dob?: FormikErrors<Date> | undefined
     description?: string
     image?: string
 }

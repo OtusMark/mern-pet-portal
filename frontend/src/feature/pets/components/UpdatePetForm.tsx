@@ -1,7 +1,7 @@
 import {FormikHelpers, useFormik} from "formik";
 import {StyledForm} from "../../../common/styles/form/StyledForm";
 import {InputWrapper} from "../../../common/styles/form/InputWrapper";
-import {Input} from "../../../common/components/form/Input";
+import {InputText} from "../../../common/components/form/InputText";
 import styled from "styled-components/macro";
 import {Card} from "../../../common/styles/layout/Card";
 import {Button} from "../../../common/components/uiElements/Button";
@@ -60,17 +60,17 @@ export const UpdatePetForm: React.FC<PropsT> = (props) => {
             <StyledForm onSubmit={formik.handleSubmit}>
 
                 <InputWrapper>
-                    <Input placeholder="New name"
-                           type="text"
-                           error={formik.errors.name}
-                           {...formik.getFieldProps('name')}/>
+                    <InputText placeholder="New name"
+                               type="text"
+                               error={formik.errors.name}
+                               {...formik.getFieldProps('name')}/>
                 </InputWrapper>
 
                 <InputWrapper>
-                    <Input placeholder="New description"
-                           type="text"
-                           error={formik.errors.description}
-                           {...formik.getFieldProps('description')}/>
+                    <InputText placeholder="New description"
+                               type="text"
+                               error={formik.errors.description}
+                               {...formik.getFieldProps('description')}/>
                 </InputWrapper>
 
                 <Button type='submit'>Edit</Button>
